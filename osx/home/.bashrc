@@ -1,9 +1,5 @@
 if shopt -q login_shell; then
-	#export PS1="\[\033[36m\]\w\[\033[m\] \[\033[32m\]\$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo '')\[\033[m\]\$ "
-	#export PS1="\[\033[36m\]\w\[\033[m\]\$(git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/.*/ \\[\\033[32m\\]&\\[\\033[m\\]/' || echo '')$ "
-	#export PS1="\[\033[36m\]\w\[\033[m\]\$(git status -s 2>/dev/null | paste -s - | sed 's/.*/ \\[\\033[33;1m\\]*/')\$(git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/.*/ \\[\\033[34m\\]&\\[\\033[m\\]/')$ "
-	#export PS1="\[$(tput setaf 6)\]\w\[$(tput setaf 3)\]\$(git status -s 2>/dev/null | paste -s - | sed 's/.*/ */') \[$(tput setaf 2)\]\$(git rev-parse --abbrev-ref HEAD 2>/dev/null || tput kbs)\[$(tput sgr0)\]$ "
-	export PS1="\[$(tput setaf 6)\]\w\[$(tput setaf 3)\]\$(/usr/bin/git status -s 2>/dev/null | paste -s - | sed 's/.*/ */')\[$(tput setaf 2)\]\$(/usr/bin/git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/.*/ &/')\[$(tput sgr0)\]$ "
+	export PS1="\[$(tput setaf 6)\]\w\[$(tput setaf 3)\]\$(git status -s 2>/dev/null | paste -s - | sed 's/.*/ */')\[$(tput setaf 2)\]\$(git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/.*/ &/')\[$(tput sgr0)\]$ "
 else
 	export PS1="\s-\v:\W\$ "
 fi
@@ -30,7 +26,7 @@ function nexus()
 
 function dirty()
 {
-	/usr/bin/git status | egrep 'new file:|modified:' | awk -F: '{print $2}' | awk '{print $1}' | sort | uniq
+	git status | egrep 'new file:|modified:' | awk -F: '{print $2}' | awk '{print $1}' | sort | uniq
 }
 
 function mirror()
@@ -120,6 +116,17 @@ function mycnf()
 	fi
 }
 
+function log()
+{
+	LOG=/opt/wildfly/standalone/log/server.log
+	if [ -z "$1" ]
+	then
+		less +G $LOG
+	else
+		tail -f $LOG | fgrep -i "$*"
+	fi
+}
+
 function logb()
 {
 	LOG=/opt/local/wildfly/standalone/log/server.log
@@ -129,18 +136,6 @@ function logb()
 	else
 		tail -f $LOG | fgrep -i "$*"
 	fi
-}
-
-function git()
-{
-	case $* in
-	pull|push|fetch)
-		xgit $*
-		;;
-	*)
-		/usr/bin/git $*
-		;;
-	esac
 }
 
 if [ -e ~/.bash_aliases ]
