@@ -142,6 +142,6 @@ function wire() {
 
 	networksetup -getinfo "$SERVICE" |
 	grep -q disabled &&
-		(echo Plugging wire; networksetup -setnetworkserviceenabled "$SERVICE" on) ||
-		(echo Pulling wire; networksetup -setnetworkserviceenabled "$SERVICE" off)
+		(echo Plugging wire; networksetup -setdhcp "$SERVICE") ||
+		(echo Pulling wire; networksetup -setv4off "$SERVICE")
 }
