@@ -141,7 +141,7 @@ function wire() {
 	SERVICE="Thunderbolt Ethernet Slot 1"
 
 	networksetup -getinfo "$SERVICE" |
-	grep -q disabled &&
-		(echo Plugging wire; networksetup -setdhcp "$SERVICE") ||
-		(echo Pulling wire; networksetup -setv4off "$SERVICE")
+	grep -q Subnet &&
+		(echo Pulling wire; networksetup -setv4off "$SERVICE") ||
+		(echo Plugging wire; networksetup -setdhcp "$SERVICE")
 }
