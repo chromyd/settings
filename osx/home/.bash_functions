@@ -17,75 +17,10 @@ function unmap() {
 #}
 
 function finalize() {
-	sh ~/ws/freestream/finalize.sh $*
-	mv -v ~/ChromeDownloads/*.mp4 ~/nhl
+	sh ~/ws/freestream/assemble.sh &&
+	sh ~/ws/freestream/process.sh ~/ChromeDownloads/202*.ts &&
+	mv -v ~/ChromeDownloads/*.mp4 ~/nhl &&
 	find ~/ChromeDownloads/*.ts -size +1G | xargs -I {} mv -v {} ~/nhl/ts
-}
-
-function ocr() {
-	if [ $# != 3 ]
-	then
-		echo 'Usage: ocr FILE FROM LENGTH' >&2
-		return
-	fi	
-
-	local FILE=$1
-	local FROM=$2
-	
-	echo "Analyzing $FILE from $2 for $3 seconds" > raw-ocr-$$
-	echo "Analyzing $FILE from $2 for $3 seconds"
-	local IDX=0
-	while [ $IDX -lt $3 ]
-	do
-		echo ">>> Pos: $((IDX + FROM))" >> raw-ocr-$$
-		ffmpeg -nostdin -v fatal -ss $((IDX + FROM)) -i $FILE -vframes 1 -f image2 - |
-		#tesseract stdin stdout -c tessedit_char_whitelist=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:-  2>> errors >> raw-ocr-$$
-		tesseract stdin stdout 2>> errors >> raw-ocr-$$
-		echo -n "$((IDX + 1)) "
-		let 'IDX += 1'
-	done
-	grep -v '^$' raw-ocr-$$ | perl -ne '
-if (/Pos: (\S+)/) {
-	$p=$1;
-}
-else {
-	print "$p: $_";
-}' > ${FILE%.ts}.ocr && rm raw-ocr-$$
-	echo Done
-}
-
-function srt() {
-	for FILE in $*
-	do
-		SRT_FILE=${FILE%.ts}.srt
-		test -e $SRT_FILE || ffmpeg -f lavfi -i movie=$FILE[out+subcc] -map 0:1 $SRT_FILE
-	done
-}
-
-function report() {
-	for f in $*
-	do
-		BASENAME=$(basename $f)
-		BASE=${BASENAME%%.srt}
-		perl -n ~/tmp/mins.pl < ~/nhl/ts/$BASE.silence.txt > $BASE.report
-		cat $f >> $BASE.report
-	done
-	less *.report
-}
-
-function grab() {
-	POS=$1
-	FILE=${2:-*.ts}
-
-	if [ "$POS" == "" -o ! -e $(echo $FILE | tr -d ' ') ]
-	then
-		echo Usage: grab POS [FILE]
-		echo
-		echo "    POS  -- can be in any ffmpeg supported format, eg. 46:57 or 2817"
-		echo "    FILE -- the filename (must not contain spaces), defaults to *.ts:" *.ts
-		return
-	fi
-	ffmpeg -ss $POS -i $FILE -vframes 1 -y image.jpeg && open image.jpeg
 }
 
 function curly() {
@@ -119,29 +54,37 @@ function mvns() {
 	fi
 }
 
-function npmproxy() {
-	case $1 in
-	on)
-		npm config set proxy http://localhost:3128
-		npm config set https-proxy http://localhost:3128
-		;;
-	off)
-		npm config rm proxy
-		npm config rm https-proxy
-		;;
-	esac
-	
-}
-
 function emulator() {
 	cd "$(dirname "$(which emulator)")" && ./emulator "$@"
 }
 
-function wire() {
-	SERVICE="Thunderbolt Ethernet Slot 1"
+#function npm() {
+#
+#	case "$1" in
+#	start|run)
+#		/usr/local/bin/npm $* 2>&1 >/dev/null
+#		;;
+#	*)
+#		/usr/local/bin/npm $*
+#	esac
+#}
 
-	networksetup -getinfo "$SERVICE" |
-	grep -q Subnet &&
-		(echo Pulling wire; networksetup -setv4off "$SERVICE") ||
-		(echo Plugging wire; networksetup -setdhcp "$SERVICE")
+function sha1() {
+	echo -n "$1" | shasum | cut -d ' ' -f 1
+}
+
+function tscj() {
+	echo Running tsc, checking journey ...
+	echo
+	/usr/local/bin/tsc -p . --noEmit | grep ^src/journey | grep -v test | tee /tmp/tsc$$
+	echo
+	echo "Found" $(wc -l < /tmp/tsc$$) "error(s)"
+}
+
+function adv() {
+	cd ~/Documents
+	id=$(ls -r MO-??.csv | head -1 | tr '-' '.' | cut -f 2 -d .)
+	next_id=$((id + 1))
+	cp MO-${id}.csv MO-${next_id}.csv
+	vi MO-${next_id}.csv
 }
