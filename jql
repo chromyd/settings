@@ -1,0 +1,18 @@
+#!/bin/bash
+
+JQL=$*
+AUTH=${BASIC_AUTH:-$(pbpaste)}
+
+if [[ ! "$AUTH" =~ "Basic" ]]
+then
+	echo 'Missing authorization info - do one of the following:'
+	echo
+	echo '- export BASIC_AUTH variable containing "Basic ..."'
+	echo '- copy the value starting with "Basic" to the clipboard'
+	echo
+	exit 1
+fi
+
+curl -s -X GET -H "Authorization: $AUTH" "https://businesshub.jaas.service.deutschebahn.com/rest/api/latest/search?jql=${JQL// /+}&fields=key" | jq "."
+
+# jq ".total"
