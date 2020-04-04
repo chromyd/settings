@@ -1,0 +1,33 @@
+#!/bin/bash
+
+case $1 in
+e*)
+	SUBJECT=EN
+	;;
+f*)
+	SUBJECT=FR
+	;;
+*)
+	echo "Unknown subject: $1"
+	exit 1	
+	;;	
+esac
+
+echo "Subject is $SUBJECT"
+FILE=Hausaufgaben-Julie-$(date +%F)-$SUBJECT.pdf
+
+pbcopy <<EOF
+Hallo,
+
+anbei finden Sie die Hausaufgaben von Julie.
+
+MfG,
+
+Dusan Chromy
+EOF
+
+topdf $* &&
+mv Combined.pdf $FILE &&
+echo Successfully written $FILE &&
+open $FILE
+
