@@ -2,10 +2,12 @@
 
 case $1 in
 e*)
-	SUBJECT=EN
+	SUB=EN
+	SUBJECT=Englisch
 	;;
 f*)
-	SUBJECT=FR
+	SUB=FR
+	SUBJECT=Französisch
 	;;
 *)
 	echo "Unknown subject: $1"
@@ -13,21 +15,14 @@ f*)
 	;;	
 esac
 
-echo "Subject is $SUBJECT"
-FILE=Hausaufgaben-Julie-$(date +%F)-$SUBJECT.pdf
+echo "Subject is $SUB"
+FILE=Hausaufgaben-Julie-$(date +%F)-$SUB.pdf
 
-pbcopy <<EOF
-Hallo,
-
-anbei finden Sie die Hausaufgaben von Julie.
-
-MfG,
-
-Dusan Chromy
-EOF
+echo $SUBJECT Hausaufgaben - Julie 7c - Liebe Grüße | pbcopy
 
 topdf $* &&
 mv Combined.pdf $FILE &&
+rm $* &&
 echo Successfully written $FILE &&
 open $FILE
 
