@@ -23,10 +23,6 @@ function finalize() {
 	find ~/ChromeDownloads/*.ts -size +1G | xargs -I {} mv -v {} ~/nhl/ts
 }
 
-function curly() {
-	/usr/bin/curl -S $* | python -m json.tool
-}
-
 function fspublish() {(
 	cd freestream &&
 	ng build --prod --base-href=/freestream/ &&
@@ -73,18 +69,28 @@ function sha1() {
 	echo -n "$1" | shasum | cut -d ' ' -f 1
 }
 
-function tscj() {
-	echo Running tsc, checking journey ...
-	echo
-	/usr/local/bin/tsc -p . --noEmit | grep ^src/journey | grep -v test | tee /tmp/tsc$$
-	echo
-	echo "Found" $(wc -l < /tmp/tsc$$) "error(s)"
-}
-
-function adv() {
-	cd ~/Documents
+function adv() {(
+	cd ~/Documents/MOBI-2020
 	id=$(ls -r MO-??.csv | head -1 | tr '-' '.' | cut -f 2 -d .)
 	next_id=$((id + 1))
 	cp MO-${id}.csv MO-${next_id}.csv
 	vi MO-${next_id}.csv
-}
+)}
+
+function today() {(
+	cd ~/Documents/MOBI-2020
+	id=$(ls -r MO-??.csv | head -1 | tr '-' '.' | cut -f 2 -d .)
+	vi MO-${id}.csv
+)}
+
+function yesterday() {(
+	cd ~/Documents/MOBI-2020
+	id=$(ls -r MO-??.csv | head -1 | tr '-' '.' | cut -f 2 -d .)
+	find . -name MO-${id}.csv -print -exec cat {} \;
+)}
+
+#function ju0() {(
+#	cd ~/Documents/Ju-Hausaufgaben
+#	topdf $*
+#	mv Combined.pdf Hausaufgaben-Julie.pdf
+#)}
