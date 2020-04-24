@@ -16,13 +16,18 @@ f*)
 esac
 
 echo "Subject is $SUB"
-FILE=Hausaufgaben-Julie-$(date +%F)-$SUB.pdf
+FILE=~/ju/Hausaufgaben-Julie-$(date +%F)-$SUB.pdf
 
 echo $SUBJECT Hausaufgaben - Julie 7c - Liebe Grüße | pbcopy
 
-topdf $* &&
-mv Combined.pdf $FILE &&
-rm $* &&
+DIR=~/Downloads
+
+ls -ltr $DIR/Unknown* | head -1
+ls -ltr $DIR/Unknown* | tail -1
+
+topdf $(ls -tr $DIR/Unknown*) &&
+mv $DIR/Combined.pdf $FILE &&
+rm $DIR/Unknown* &&
 echo Successfully written $FILE &&
 open $FILE
 
