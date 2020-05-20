@@ -128,7 +128,7 @@ function print_recent() {(
 	echo -n 'Continue [Y/n] ? '
 	read INPUT
 	if [ "$INPUT" == "n" ]; then return; fi
-	echo Go ahead!
-	ls -t | head -6 | tr '\n' '\0' | xargs -0 -n1 lpr
-	ls -t | head -6 | tr '\n' '\0' | xargs -0 -n1 rm
+	echo Printing...
+	ls -t | head -$N | tr '\n' '\0' | xargs -0 -n1 lpr
+	ls -t | head -$N | tr '\n' '\0' | xargs -0 -n1 rm
 )}
