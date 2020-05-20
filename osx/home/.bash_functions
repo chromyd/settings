@@ -94,3 +94,41 @@ function yesterday() {(
 #	topdf $*
 #	mv Combined.pdf Hausaufgaben-Julie.pdf
 #)}
+
+function login() {
+	if [ "$1" == "prod" ]
+	then
+		if [ -z $PASSWORD ]
+		then
+			echo Please login in as miatester.spirit@gmail.com in PROD
+			echo -n "Password: "
+			read PASSWORD
+		fi
+
+		curl -s -d "grant_type=password&client_id=mobility-app-client&username=miatester.spirit@gmail.com&password=$PASSWORD" https://auth.businesshub.deutschebahn.com/auth/realms/mobi/protocol/openid-connect/token | jq -r '.access_token' | pbcopy
+	else
+		if [ -z $PASSWORD ]
+		then
+			echo Please login in as banana2 in IAT
+			echo -n "Password: "
+			read PASSWORD
+		fi
+
+		curl -s -d "grant_type=password&client_id=mobility-app-client&username=banana2&password=$PASSWORD" https://auth.businesshub-test.deutschebahn.com/auth/realms/mobi/protocol/openid-connect/token | jq -r '.access_token' | pbcopy
+	fi
+	echo Copied to clipboard:
+	echo $(pbpaste)
+}
+
+function print_recent() {(
+	cd ~/Downloads
+	N=${1:-1}
+	echo "Print and remove $N most recent download(s):"
+	ls -t | head -$N
+	echo -n 'Continue [Y/n] ? '
+	read INPUT
+	if [ "$INPUT" == "n" ]; then return; fi
+	echo Go ahead!
+	ls -t | head -6 | tr '\n' '\0' | xargs -0 -n1 lpr
+	ls -t | head -6 | tr '\n' '\0' | xargs -0 -n1 rm
+)}
