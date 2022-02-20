@@ -1,0 +1,10 @@
+#!/usr/bin/expect -f
+spawn git [lindex $argv 0]
+#spawn git pull
+#expect -exact "Password: "
+expect {
+	-ex Password: {
+		send -- "admin\n"
+		interact
+	}
+}

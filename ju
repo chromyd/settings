@@ -1,0 +1,37 @@
+#!/bin/bash
+
+case $1 in
+e*)
+	SUB=EN
+	SUBJECT=Englisch
+	;;
+f*)
+	SUB=FR
+	SUBJECT=Französisch
+	;;
+d*)
+	SUB=DE
+	SUBJECT=Deutsch
+	;;
+*)
+	echo "Unknown subject: $1"
+	exit 1	
+	;;	
+esac
+
+echo "Subject is $SUB"
+FILE=~/ju/Hausaufgaben-Julie-$(date +%F)-$SUB.pdf
+
+echo $SUBJECT Hausaufgaben - Julie 7c - Liebe Grüße | pbcopy
+
+DIR=~/Downloads
+
+ls -ltr $DIR/Unknown* | head -1
+ls -ltr $DIR/Unknown* | tail -1
+
+topdf $(ls -tr $DIR/Unknown*) &&
+mv $DIR/Combined.pdf $FILE &&
+rm $DIR/Unknown* &&
+echo Successfully written $FILE &&
+open $FILE
+
