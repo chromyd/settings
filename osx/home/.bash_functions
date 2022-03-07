@@ -78,3 +78,18 @@ function gl() {
 		echo "Failed to extract FileID (got: $FILEID)"
 	fi
 }
+
+function monday() {
+	AWK_PROG='
+BEGIN {
+	dateCmd = "date +.%m.%Y"
+	dateCmd | getline monthYear
+	close dateCmd
+}
+/^..*$/ {
+	printf "%02d", NR
+	print monthYear ";S-052052-008;8;;"
+}
+'
+	pbpaste | tr -d '\r' | awk "$AWK_PROG" | tee $(date +M%m.csv)
+}

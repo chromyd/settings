@@ -1,0 +1,9 @@
+#!/bin/bash
+
+((!$#)) && echo No commit message as parameter, command ignored! && exit 1
+
+npm test &&
+git add . &&
+git commit -m "$*" &&
+git push &&
+echo OK 
