@@ -69,7 +69,7 @@ function gl() {
 	fi
 	TRAILING=${INPUT#https://drive.google.com/file/d/}
 	FILEID=${TRAILING%/*}
-	if [[ $FILEID =~ ^[A-Za-z0-9]*$ ]]
+	if [[ $FILEID =~ ^[A-Za-z0-9_-]*$ ]]
 	then
 		URL="https://www.googleapis.com/drive/v3/files/$FILEID?${ID}alt=media&key=$APIKEY"
 		echo $URL | pbcopy
@@ -79,17 +79,37 @@ function gl() {
 	fi
 }
 
-function monday() {
+function monday() {(
+	cd adv
 	AWK_PROG='
 BEGIN {
+	pspElem = "I-050404-02"
 	dateCmd = "date +.%m.%Y"
 	dateCmd | getline monthYear
 	close dateCmd
 }
-/^..*$/ {
+/^[0-9]/ {
 	printf "%02d", NR
-	print monthYear ";S-052052-008;8;;"
+	print monthYear ";" pspElem ";8;;"
 }
 '
 	pbpaste | tr -d '\r' | awk "$AWK_PROG" | tee $(date +M%m.csv)
+
+	echo "Check PSP element(s) before importing ~/adv/$(date +M%m.csv)!"
+)}
+
+function run() {
+	if [ -r package.json ]
+	then
+		npm run start:dev || npm run start
+	elif [ -r pom.xml ]
+	then
+		mvn spring-boot:run
+	fi
+
+	echo Project type could not be determined, not knowing what to run.
+}
+
+function cls() {
+	/usr/bin/osascript -e 'tell application "System Events" to tell process "Terminal" to keystroke "k" using command down'
 }

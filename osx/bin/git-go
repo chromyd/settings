@@ -1,9 +1,56 @@
 #!/bin/bash
 
-((!$#)) && echo No commit message as parameter, command ignored! && exit 1
+NO_TESTS=1
+ISSUE_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/feature\///' | sed 's/bugfix\///' | cut -f 1-2 -d- | tr a-z A-Z)
 
-npm test &&
-git add . &&
-git commit -m "$*" &&
-git push &&
+if [ -r package.json ]
+then
+	TEST_CMD="npm run test --if-present"
+	NO_TESTS=0
+fi
+
+if [ -r pom.xml ]
+then
+	TEST_CMD="mvn test"
+	NO_TESTS=0
+fi
+
+while [[ $1 =~ - ]]
+do
+	case $1 in
+		--no-tests)
+			NO_TESTS=1
+			;;
+		--no-verify)
+			GIT_OPTS=$1
+			;;
+		--no-issue)
+			ISSUE_NAME=""
+			;;
+		-x)
+			ISSUE_NAME=""
+			;;
+		*)
+			echo Unrecognized parameter $1
+			exit 1
+	esac
+	shift
+done
+
+echo Issue name: $ISSUE_NAME
+
+if [[ $ISSUE_NAME != "" && ! $ISSUE_NAME =~ ^[A-Z][A-Z][A-Z]?[A-Z]?-[0-9]+$ ]]
+then
+	echo "Invalid issue name, suppress issue name generation with --no-issue"
+	exit 1
+fi
+
+
+((!$#)) && echo No commit message as parameter, command ignored! && exit 1
+git status -s | grep -q '^??' && echo Untracked files exist, please add them manually if intended: && git status -s && exit 1
+
+([ "$NO_TESTS" = "1" ] || $TEST_CMD ) &&
+git add -u . &&
+(git diff-index --quiet HEAD || git commit -m "$ISSUE_NAME $*" $GIT_OPTS) &&
+git push -u $GIT_OPTS &&
 echo OK 
