@@ -24,7 +24,7 @@ do
 		--no-verify)
 			GIT_OPTS=$1
 			;;
-		--no-issue)
+		--no-issue|-n)
 			ISSUE_NAME=""
 			;;
 		-x)
@@ -41,7 +41,7 @@ echo Issue name: $ISSUE_NAME
 
 if [[ $ISSUE_NAME != "" && ! $ISSUE_NAME =~ ^[A-Z][A-Z][A-Z]?[A-Z]?-[0-9]+$ ]]
 then
-	echo "Invalid issue name, suppress issue name generation with --no-issue"
+	echo "Invalid issue name, suppress issue name generation with -n (--no-issue)"
 	exit 1
 fi
 

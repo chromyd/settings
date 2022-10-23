@@ -1,0 +1,9 @@
+== Software to Install
+* brew install --cask unnaturalscrollwheels
+* brew install --cask yippy
+* brew install --cask rectangle
+
+== Configuration
+Home and End keys are not working properly. Here is what I did to fix (possibly both is needed!):
+1. Identify USB Keyboard type (for instance, ANSI for US-type keyboard with backslash over return key).
+1. Redefined KeyBindings in `~/Library/KeyBindings/DefaultKeyBinding.dict` (see the file in this folder)
