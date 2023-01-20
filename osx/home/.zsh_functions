@@ -16,3 +16,22 @@ function x() {
 	echo
 	pbpaste
 }
+
+function gco() {
+	MATCHES=$(git branch --remote | grep -w "$*" | awk 'END {print NR}')
+	case ${MATCHES} in
+	0)
+		echo No branch matched for "\"$*\"", available branches are:
+		git branch --remote
+		false
+		;;
+	1)
+		git checkout $(git branch --remote | grep -w "$*" | sed 's/^\s*origin\///')
+		;;
+	*)
+		echo Multiple branches matched for "\"$*\"":
+		git branch --remote | grep -w "$*"
+		false
+		;;
+	esac
+}

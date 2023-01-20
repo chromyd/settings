@@ -19,10 +19,12 @@ alias gcloud=~/.local/google-cloud-sdk/bin/gcloud
 alias clear="printf '\e[2J\e[3J\e[H'"
 
 alias ww=/usr/bin/w
+alias ll='ls -l'
 
 alias r='npm run'
 alias w='npm run dev:watch'
-alias l='npm run dev:local-no-clone-m1'
+alias l='npm run dev:local --dtcw=local'
+alias lnc='npm run dev:local-no-clone --dtcw=local'
 
 ## Unalias unneeded plugin aliases/functions:
 # macos
@@ -45,9 +47,9 @@ unset -f spotify
 unset -f rmdsstore
 unset -f btrestart
 unset -f freespace
+unalias gco
 
 ## Old aliases
-# alias ll='ls -l'
 # alias gc='~/.sdkman/candidates/groovy/current/bin/groovyConsole > /dev/null 2>&1 &'
 # alias gup='scp ~/ws/girl.txt otaku: && rm ~/ws/girl.txt'
 # alias gdown='cd ~/ws && scp otaku:girl.txt .'
