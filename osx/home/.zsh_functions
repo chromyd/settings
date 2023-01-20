@@ -1,0 +1,18 @@
+function remap() {
+        hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035},{"HIDKeyboardModifierMappingSrc":0x700000035,"HIDKeyboardModifierMappingDst":0x700000064}]}'
+}
+
+function showmap() {
+        hidutil property --get "UserKeyMapping"
+}
+
+function unmap() {
+        hidutil property --set '{"UserKeyMapping":[]}'
+}
+
+function x() {
+	echo $(pbpaste | tr -d '\n\\') | pbcopy 
+	echo Your clipboard contains:
+	echo
+	pbpaste
+}

@@ -1,0 +1,54 @@
+alias §='remap'
+alias §§='unmap'
+alias decrypt='openssl enc -d -aes-128-cbc -a'
+alias encrypt='openssl enc -aes-128-cbc -salt -a'
+
+alias json='python3 -m json.tool'
+alias pod='podman machine start && podman-compose up'
+
+alias nrsd='npm run start:dev'
+
+alias gdown='scp otaku:girl.pages /tmp'
+alias gup='scp /tmp/girl.pages otaku:; rm -fv /tmp/girl.*'
+alias gopen='open -a Pages /tmp/girl.pages'
+
+alias t=tab
+
+alias gcloud=~/.local/google-cloud-sdk/bin/gcloud
+#alias clear="clear && printf '\e[3J'"
+alias clear="printf '\e[2J\e[3J\e[H'"
+
+alias ww=/usr/bin/w
+
+alias r='npm run'
+alias w='npm run dev:watch'
+alias l='npm run dev:local-no-clone-m1'
+
+## Unalias unneeded plugin aliases/functions:
+# macos
+unset -f split_tab
+unset -f vsplit_tab
+#unset -f ofd
+#unset -f pfd
+unset -f pfs
+#unset -f cdf
+unset -f pushdf
+unset -f pxd
+unset -f cdx
+unset -f quick-look
+unset -f man-preview
+unalias showfiles
+unalias hidefiles
+unset -f itunes
+unset -f music
+unset -f spotify
+unset -f rmdsstore
+unset -f btrestart
+unset -f freespace
+
+## Old aliases
+# alias ll='ls -l'
+# alias gc='~/.sdkman/candidates/groovy/current/bin/groovyConsole > /dev/null 2>&1 &'
+# alias gup='scp ~/ws/girl.txt otaku: && rm ~/ws/girl.txt'
+# alias gdown='cd ~/ws && scp otaku:girl.txt .'
+# alias go='rm -rf ~/ins/* ~/.local/doc-dipla && cd ~/ins && echo -n "curl -o doc-install.sh http://localhost:8080/doc-install.sh && bash doc-install.sh" | pbcopy && echo Command copied to clipboard!'
