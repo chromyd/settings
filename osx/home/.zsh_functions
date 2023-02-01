@@ -18,6 +18,22 @@ function x() {
 }
 
 function gco() {
+	while [[ $1 =~ ^- ]]
+	do
+		case $1 in
+			--first)
+				FIRST=1
+				;;
+			-f)
+				FIRST=1
+				;;
+			*)
+				echo Unrecognized option $1
+				exit 1
+		esac
+		shift
+	done
+
 	MATCHES=$(git branch --remote | grep -w "$*" | awk 'END {print NR}')
 	case ${MATCHES} in
 	0)
@@ -31,7 +47,14 @@ function gco() {
 	*)
 		echo Multiple branches matched for "\"$*\"":
 		git branch --remote | grep -w "$*"
-		false
+		if [[ ${FIRST} == 1 ]]
+		then
+			echo "Checking out the first hit"
+			git checkout $(git branch --remote | grep -w "$*" | head -1 | sed 's/^\s*origin\///')
+		else
+			echo "Re-run with --first (-f) if you wish to check out the first hit"
+			false
+		fi
 		;;
 	esac
 }
