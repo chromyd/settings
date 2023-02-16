@@ -10,6 +10,26 @@ function unmap() {
         hidutil property --set '{"UserKeyMapping":[]}'
 }
 
+function gdl() {
+	ID=""
+	INPUT=$(pbpaste)
+	APIKEY=$(cat ~/.google-api-key)
+	if [ ! -z "$1" ]
+	then
+		ID="n=$1&"
+	fi
+	TRAILING=${INPUT#https://drive.google.com/file/d/}
+	FILEID=${TRAILING%/*}
+	if [[ $FILEID =~ ^[A-Za-z0-9_-]*$ ]]
+	then
+		URL="https://www.googleapis.com/drive/v3/files/$FILEID?${ID}alt=media&key=$APIKEY"
+		echo $URL | pbcopy
+		echo "URL copied to clipboard"
+	else
+		echo "Failed to extract FileID (got: $FILEID)"
+	fi
+}
+
 function x() {
 	echo $(pbpaste | tr -d '\n\\') | pbcopy 
 	echo Your clipboard contains:
@@ -18,6 +38,8 @@ function x() {
 }
 
 function gco() {
+	local FIRST=0
+	echo FIRST:${FIRST}
 	while [[ $1 =~ ^- ]]
 	do
 		case $1 in

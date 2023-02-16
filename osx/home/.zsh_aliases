@@ -21,10 +21,11 @@ alias clear="printf '\e[2J\e[3J\e[H'"
 alias ww=/usr/bin/w
 alias ll='ls -l'
 
+alias c='code .'
 alias r='npm run'
 alias w='npm run dev:watch'
-alias l='npm run dev:local --dtcw=local'
-alias lnc='npm run dev:local-no-clone --dtcw=local'
+alias l='npm run dev:local --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
+alias lnc='npm run dev:local-no-clone --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
 
 ## Unalias unneeded plugin aliases/functions:
 # macos
