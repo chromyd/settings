@@ -79,3 +79,12 @@ function gco() {
 		;;
 	esac
 }
+
+function c() {
+	if [ -z "$*" ]
+	then
+		code .
+	else
+		z "$*" && code .
+	fi
+}

@@ -11,7 +11,6 @@ alias clear="printf '\e[2J\e[3J\e[H'"
 
 alias ll='ls -l'
 
-alias c='code .'
 alias w='npm run dev:watch'
 alias l='npm run dev:local --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
 alias lnc='npm run dev:local-no-clone --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
