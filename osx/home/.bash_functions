@@ -50,10 +50,6 @@ function wd() {
 	[ -f .autorun ] && echo Running .autorun && sh -x .autorun
 }
 
-function npmt() {
-	node_modules/mocha/bin/mocha -r ts-node/register -g "$*"
-}
-
 function gl() {
 	ID=""
 	INPUT=$(pbpaste)
@@ -92,19 +88,3 @@ BEGIN {
 
 	echo "Check PSP element(s) before importing ~/adv/$(date +M%m.csv)!"
 )}
-
-function run() {
-	if [ -r package.json ]
-	then
-		npm run start:dev || npm run start
-	elif [ -r pom.xml ]
-	then
-		mvn spring-boot:run
-	fi
-
-	echo Project type could not be determined, not knowing what to run.
-}
-
-function cls() {
-	/usr/bin/osascript -e 'tell application "System Events" to tell process "Terminal" to keystroke "k" using command down'
-}

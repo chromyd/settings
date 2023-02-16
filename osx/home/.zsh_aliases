@@ -6,14 +6,11 @@ alias encrypt='openssl enc -aes-128-cbc -salt -a'
 alias json='python3 -m json.tool'
 alias pod='podman machine start && podman-compose up'
 
-alias nrsd='npm run start:dev'
-
 alias t=tab
 
 alias gcloud=~/.local/google-cloud-sdk/bin/gcloud
 alias clear="printf '\e[2J\e[3J\e[H'"
 
-alias ww=/usr/bin/w
 alias ll='ls -l'
 
 alias c='code .'
@@ -24,12 +21,12 @@ alias lnc='npm run dev:local-no-clone --dtcw=local && echo -e "Finished at \e[38
 
 ## Unalias unneeded plugin aliases/functions:
 # macos
-unset -f split_tab
-unset -f vsplit_tab
 #unset -f ofd
 #unset -f pfd
-unset -f pfs
 #unset -f cdf
+unset -f split_tab
+unset -f vsplit_tab
+unset -f pfs
 unset -f pushdf
 unset -f pxd
 unset -f cdx
@@ -43,4 +40,6 @@ unset -f spotify
 unset -f rmdsstore
 unset -f btrestart
 unset -f freespace
+
+# git
 unalias gco
