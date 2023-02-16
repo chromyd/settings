@@ -10,10 +10,6 @@ function unmap() {
 	hidutil property --set '{"UserKeyMapping":[]}'
 }
 
-function emulator() {
-	cd "$(dirname "$(which emulator)")" && ./emulator "$@"
-}
-
 function adv() {(
 	cd ~/Documents/Team-Spirit-2021
 	id=$(ls -r W??.csv | head -1 | sed 's/W/W./' | cut -f 2 -d .)
@@ -35,21 +31,6 @@ function print_recent() {(
 	ls -t | head -$N | tr '\n' '\0' | xargs -0 -n1 rm
 )}
 
-function wd() {
-	ARG1=$1
-	ARG=${ARG1:-1}
-	WD=~/ws/$(head -n $ARG ~/.workdir | tail -n 1)
-	if [ -z "$ARG1" ]
-	then
-		HIGHLIGHT_ON=$(tput bold)$(tput setaf 5)
-		HIGHLIGHT_OFF=$(tput sgr0)
-		awk -v highlight_on=$HIGHLIGHT_ON -v highlight_off=$HIGHLIGHT_OFF '{printf "%s%2d%s %s\n", highlight_on, NR, highlight_off, $0}' ~/.workdir
-	fi
-	echo "Changing dir to $ARG: $WD"
-	cd $WD
-	[ -f .autorun ] && echo Running .autorun && sh -x .autorun
-}
-
 function gl() {
 	ID=""
 	INPUT=$(pbpaste)
@@ -69,22 +50,3 @@ function gl() {
 		echo "Failed to extract FileID (got: $FILEID)"
 	fi
 }
-
-function monday() {(
-	cd adv
-	AWK_PROG='
-BEGIN {
-	pspElem = "I-050404-02"
-	dateCmd = "date +.%m.%Y"
-	dateCmd | getline monthYear
-	close dateCmd
-}
-/^[0-9]/ {
-	printf "%02d", NR
-	print monthYear ";" pspElem ";8;;"
-}
-'
-	pbpaste | tr -d '\r' | awk "$AWK_PROG" | tee $(date +M%m.csv)
-
-	echo "Check PSP element(s) before importing ~/adv/$(date +M%m.csv)!"
-)}

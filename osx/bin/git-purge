@@ -1,3 +1,0 @@
-#!/bin/bash
-
-git branch | egrep -v "main|develop|integration|$(git branch --show-current)" | xargs git branch -d $*

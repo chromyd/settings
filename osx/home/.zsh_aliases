@@ -6,15 +6,12 @@ alias encrypt='openssl enc -aes-128-cbc -salt -a'
 alias json='python3 -m json.tool'
 alias pod='podman machine start && podman-compose up'
 
-alias t=tab
-
 alias gcloud=~/.local/google-cloud-sdk/bin/gcloud
 alias clear="printf '\e[2J\e[3J\e[H'"
 
 alias ll='ls -l'
 
 alias c='code .'
-alias r='npm run'
 alias w='npm run dev:watch'
 alias l='npm run dev:local --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
 alias lnc='npm run dev:local-no-clone --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
@@ -24,6 +21,7 @@ alias lnc='npm run dev:local-no-clone --dtcw=local && echo -e "Finished at \e[38
 #unset -f ofd
 #unset -f pfd
 #unset -f cdf
+alias t=tab
 unset -f split_tab
 unset -f vsplit_tab
 unset -f pfs
