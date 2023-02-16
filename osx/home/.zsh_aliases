@@ -8,14 +8,9 @@ alias pod='podman machine start && podman-compose up'
 
 alias nrsd='npm run start:dev'
 
-alias gdown='scp otaku:girl.pages /tmp'
-alias gup='scp /tmp/girl.pages otaku:; rm -fv /tmp/girl.*'
-alias gopen='open -a Pages /tmp/girl.pages'
-
 alias t=tab
 
 alias gcloud=~/.local/google-cloud-sdk/bin/gcloud
-#alias clear="clear && printf '\e[3J'"
 alias clear="printf '\e[2J\e[3J\e[H'"
 
 alias ww=/usr/bin/w
@@ -49,9 +44,3 @@ unset -f rmdsstore
 unset -f btrestart
 unset -f freespace
 unalias gco
-
-## Old aliases
-# alias gc='~/.sdkman/candidates/groovy/current/bin/groovyConsole > /dev/null 2>&1 &'
-# alias gup='scp ~/ws/girl.txt otaku: && rm ~/ws/girl.txt'
-# alias gdown='cd ~/ws && scp otaku:girl.txt .'
-# alias go='rm -rf ~/ins/* ~/.local/doc-dipla && cd ~/ins && echo -n "curl -o doc-install.sh http://localhost:8080/doc-install.sh && bash doc-install.sh" | pbcopy && echo Command copied to clipboard!'

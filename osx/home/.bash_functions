@@ -35,11 +35,6 @@ function print_recent() {(
 	ls -t | head -$N | tr '\n' '\0' | xargs -0 -n1 rm
 )}
 
-function elfe() {
-	echo RHp1SHA5blZQeA== | base64 -d | pbcopy
-	echo ELFE password copied to clipboard
-}
-
 function wd() {
 	ARG1=$1
 	ARG=${ARG1:-1}
