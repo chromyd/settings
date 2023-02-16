@@ -39,7 +39,6 @@ function x() {
 
 function gco() {
 	local FIRST=0
-	echo FIRST:${FIRST}
 	while [[ $1 =~ ^- ]]
 	do
 		case $1 in
