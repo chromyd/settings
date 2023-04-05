@@ -12,8 +12,8 @@ alias clear="printf '\e[2J\e[3J\e[H'"
 alias ll='ls -l'
 
 alias w='npm run dev:watch'
-alias l='npm run dev:local --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
-alias lnc='npm run dev:local-no-clone --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
+alias l='arch -x86_64 npm run dev:local --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
+alias lnc='arch -x86_64 npm run dev:local-no-clone --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
 
 ## Unalias unneeded plugin aliases/functions:
 # macos

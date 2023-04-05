@@ -1,0 +1,56 @@
+#!/bin/sh
+
+DAYS_BACK=$(( $(date +%u) - 1 ))
+HOURS=~/hours
+echo "Your hours for today and the previous $DAYS_BACK day(s):"
+
+grep -B $DAYS_BACK $(date -u +"%Y-%m-%d") $HOURS
+
+echo "------------------------"
+
+grep -B $DAYS_BACK $(date -u +"%Y-%m-%d") $HOURS | awk -F, '
+
+    function minutes(time) {
+        return substr(time, 1, 2) * 60 + substr(time, 3)
+    }
+
+    function to_minutes(duration) {
+        if (substr(duration, length(duration)) == "m") {
+            return substr(duration, 1, length(duration) - 1)
+        }
+        else if (substr(duration, length(duration)) == "h") {
+            return 60* substr(duration, 1, length(duration) - 1)
+        }
+    }
+
+    function format(minutes) {
+        hours = minutes / 60
+        m = minutes - 60 * int(hours)
+
+        if (m == 0) {
+            return sprintf("%dh", hours)
+        }
+        else {
+            return sprintf("%dh %dm", hours, m)
+        }
+
+    }
+
+    BEGIN {
+        totalMinutes = 0
+        totalDays = 0
+    }
+    {
+        m = minutes($3)-minutes($2)-to_minutes($4)
+
+        totalMinutes += m
+        ++totalDays
+
+        print $1, format(m)
+    }
+
+    END {
+        print "------------------------"
+        print format(totalMinutes) " in " totalDays " day(s)"
+    }
+'

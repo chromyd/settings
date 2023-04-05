@@ -1,0 +1,15 @@
+#!/bin/sh
+
+YEAR=$(date -u +"%Y")
+
+echo German and Hessian holidays in ${YEAR}:
+
+curl -s https://date.nager.at/api/v3/PublicHolidays/${YEAR}/DE |
+jq -r 'map(select(.counties == null or (.counties | index("DE-HE") != null)) | .date) | join("\n")' |
+
+if [ "$1" = "-w" ]
+then
+	xargs -I{} date -jf "%Y-%m-%d" {} "+%Y-%m-%d %A"
+else
+	cat
+fi
