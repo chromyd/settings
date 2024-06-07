@@ -5,19 +5,37 @@ ISSUE_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/feature\///' |
 
 if [ -r package.json ]
 then
+	LINT_CMD="npx lint-staged"
 	TEST_CMD="npm run test --if-present"
 	NO_TESTS=0
 fi
 
 if [ -r pom.xml ]
 then
+	LINT_CMD="echo No lint in pom.xml supported yet"
 	TEST_CMD="mvn test"
 	NO_TESTS=0
+	NO_LINT=1
+fi
+
+if grep -qs NO_TESTS=1 .env
+then
+	echo Skipping tests due to your .env settings
+	NO_TESTS=1
+fi
+
+if grep -qs NO_LINT=1 .env
+then
+	echo Skipping lint due to your .env settings
+	NO_LINT=1
 fi
 
 while [[ $1 =~ ^- ]]
 do
 	case $1 in
+		--no-lint)
+			NO_LINT=1
+			;;
 		--no-tests)
 			NO_TESTS=1
 			;;
@@ -37,20 +55,18 @@ do
 	shift
 done
 
-echo Issue name: $ISSUE_NAME
-
 if [[ $ISSUE_NAME != "" && ! $ISSUE_NAME =~ ^[A-Z][A-Z][A-Z]?[A-Z]?-[0-9]+$ ]]
 then
-	echo "Invalid issue name, suppress issue name generation with -n (--no-issue)"
-	exit 1
+	ISSUE_NAME=""
 fi
-
 
 ((!$#)) && echo No commit message as parameter, command ignored! && exit 1
 git status -s | grep -q '^??' && echo Untracked files exist, please add them manually if intended: && git status -s && exit 1
 
+([ "$NO_LINT" = "1" ] || $LINT_CMD ) &&
 ([ "$NO_TESTS" = "1" ] || $TEST_CMD ) &&
 git add -u . &&
-(git diff-index --quiet HEAD || git commit -m "$ISSUE_NAME $*" $GIT_OPTS) &&
+echo "Commit Message: $*\nTask: $ISSUE_NAME" &&
+(git diff-index --quiet HEAD || git commit -m "$*" -m "Task: $ISSUE_NAME" $GIT_OPTS) &&
 git push -u $GIT_OPTS &&
 echo OK 

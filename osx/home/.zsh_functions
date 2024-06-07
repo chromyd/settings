@@ -88,3 +88,19 @@ function c() {
 		z "$*" && code .
 	fi
 }
+
+function l() {
+	LOCAL=.local${1:+-$1}
+	if [ -f $LOCAL -a -x $LOCAL ]
+	then
+		echo Running $LOCAL
+		cat $LOCAL
+		./$LOCAL
+	else
+		echo Requested script $LOCAL does not exist or is not executable
+	fi
+}
+
+function update_all() {
+	find ~/ws -type d -name .git
+}

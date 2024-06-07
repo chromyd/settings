@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$PATH:"$HOME"/ws/settings/osx/bin
+export PATH=$PATH:"$HOME"/ws/settings/osx/bin:/opt/homebrew/opt/python@3.11/libexec/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -74,6 +74,7 @@ plugins=(git z macos oc)
 
 source $ZSH/oh-my-zsh.sh
 
+setopt HIST_IGNORE_ALL_DUPS
 unsetopt HIST_VERIFY
 
 [ -f ~/.nvm_init ] && source ~/.nvm_init
@@ -114,7 +115,10 @@ export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;
 # For pager in Git
 export LESS="--no-init --quit-if-one-screen -R"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-export PATH="$PATH:/Users/dusanchromy/.local/doc-dipla/bin"
+# pnpm
+export PNPM_HOME="/Users/dusanchromy/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

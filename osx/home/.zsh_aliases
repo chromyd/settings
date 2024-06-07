@@ -1,7 +1,9 @@
 alias §='remap'
 alias §§='unmap'
-alias decrypt='openssl enc -d -aes-128-cbc -a'
-alias encrypt='openssl enc -aes-128-cbc -salt -a'
+#alias decrypt='openssl enc -d -aes-128-cbc -a'
+#alias encrypt='openssl enc -aes-128-cbc -salt -a'
+alias decrypt='pipeship secrets decrypt'
+alias encrypt='pipeship secrets encrypt --use-gpg'
 
 alias json='python3 -m json.tool'
 alias pod='podman machine start && podman-compose up'
@@ -12,7 +14,8 @@ alias clear="printf '\e[2J\e[3J\e[H'"
 alias ll='ls -l'
 
 alias w='npm run dev:watch'
-alias l='arch -x86_64 npm run dev:local --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
+unalias l
+#alias l='arch -x86_64 npm run dev:local --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
 alias lnc='arch -x86_64 npm run dev:local-no-clone --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
 
 ## Unalias unneeded plugin aliases/functions:
@@ -40,3 +43,13 @@ unset -f freespace
 
 # git
 unalias gco
+
+#alias dgo='clear && git co docs && git clean -f && mkdir -p docs/img/dir{1,2,3} && (cd extensions && node docusaurus-adapter.js)'
+alias dgo='clear && git co docs && git clean -f && cp ~/pipeline.mdx docs/pipeline-modules/products/deploy_aws_iac_cdk_java && (cd extensions && node docusaurus-adapter.js)'
+
+alias nrsd='npm run start:dev'
+
+# alias day='clear && head -30 ~/daily ~/TODOs'
+
+alias revkroki="python -c \"import sys,base64,zlib,re; print(zlib.decompress(base64.urlsafe_b64decode(re.sub('.*/','',sys.stdin.read().strip()).encode('ascii'))).decode('utf-8'))\""
+
