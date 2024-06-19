@@ -3,6 +3,13 @@
 NO_TESTS=1
 ISSUE_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/feature\///' | sed 's/bugfix\///' | tr _ - | cut -f 1-2 -d- | tr a-z A-Z)
 
+if [ -r nx.json ]
+then
+	FORMAT_CMD="npm run nx -- format:write --all"
+else
+	FORMAT_CMD=true
+fi
+
 if [ -r package.json ]
 then
 	LINT_CMD="npx lint-staged"
@@ -30,11 +37,20 @@ then
 	NO_LINT=1
 fi
 
+if grep -qs NO_FORMAT=1 .env
+then
+	echo Skipping format due to your .env settings
+	NO_FORMAT=1
+fi
+
 while [[ $1 =~ ^- ]]
 do
 	case $1 in
 		--no-lint)
 			NO_LINT=1
+			;;
+		--no-format)
+			NO_FORMAT=1
 			;;
 		--no-tests)
 			NO_TESTS=1
@@ -47,6 +63,10 @@ do
 			;;
 		-x)
 			ISSUE_NAME=""
+			;;
+		-i)
+			ISSUE_NAME=$2
+			shift
 			;;
 		*)
 			echo Unrecognized parameter $1
@@ -64,9 +84,11 @@ fi
 git status -s | grep -q '^??' && echo Untracked files exist, please add them manually if intended: && git status -s && exit 1
 
 ([ "$NO_LINT" = "1" ] || $LINT_CMD ) &&
+([ "$NO_FORMAT" = "1" ] || $FORMAT_CMD ) &&
 ([ "$NO_TESTS" = "1" ] || $TEST_CMD ) &&
 git add -u . &&
-echo "Commit Message: $*\nTask: $ISSUE_NAME" &&
+echo "$*" &&
+echo "Task: $ISSUE_NAME" &&
 (git diff-index --quiet HEAD || git commit -m "$*" -m "Task: $ISSUE_NAME" $GIT_OPTS) &&
 git push -u $GIT_OPTS &&
 echo OK 
