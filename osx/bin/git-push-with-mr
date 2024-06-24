@@ -1,4 +1,6 @@
 #!/bin/sh
+# Usage: git push-with-mr
+# Prerequisite: This script must be executable and in your PATH.
 
 MR_TITLE=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | tr '-' ' ' | sed 's/AIPD /AIPD-/' | sed 's/AIPO /AIPO-/')
 
