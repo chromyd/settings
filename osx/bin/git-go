@@ -52,6 +52,9 @@ do
 		--no-format)
 			NO_FORMAT=1
 			;;
+		--no-push)
+			NO_PUSH=1
+			;;
 		--no-tests)
 			NO_TESTS=1
 			;;
@@ -90,5 +93,5 @@ git add -u . &&
 echo "$*" &&
 echo "Task: $ISSUE_NAME" &&
 (git diff-index --quiet HEAD || git commit -m "$*" -m "Task: $ISSUE_NAME" $GIT_OPTS) &&
-git push -u $GIT_OPTS &&
+([ "$NO_PUSH" = "1" ] || git push-with-mr -u $GIT_OPTS ) &&
 echo OK 
