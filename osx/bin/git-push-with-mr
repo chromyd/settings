@@ -1,6 +1,9 @@
 #!/bin/sh
 # Usage: git push-with-mr
 # Prerequisite: This script must be executable and in your PATH.
+# Recommendation: This script works best with git option [push.autoSetupRemote](https://git-scm.com/docs/git-push#Documentation/git-push.txt-pushautoSetupRemote) on
+# You can set this option globally by running:
+# git config --global push.autosetupremote true
 
 MR_TITLE=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | tr '-' ' ' | sed 's/AIPD /AIPD-/' | sed 's/AIPO /AIPO-/')
 

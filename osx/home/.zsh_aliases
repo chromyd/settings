@@ -52,4 +52,4 @@ alias nrsd='npm run start:dev'
 # alias day='clear && head -30 ~/daily ~/TODOs'
 
 alias revkroki="python -c \"import sys,base64,zlib,re; print(zlib.decompress(base64.urlsafe_b64decode(re.sub('.*/','',sys.stdin.read().strip()).encode('ascii'))).decode('utf-8'))\""
-
+alias rlock='pnpm i && g add pnpm-lock.yaml && g rebase --continue' 

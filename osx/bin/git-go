@@ -93,5 +93,5 @@ git add -u . &&
 echo "$*" &&
 echo "Task: $ISSUE_NAME" &&
 (git diff-index --quiet HEAD || git commit -m "$*" -m "Task: $ISSUE_NAME" $GIT_OPTS) &&
-([ "$NO_PUSH" = "1" ] || git push-with-mr -u $GIT_OPTS ) &&
+([ "$NO_PUSH" = "1" ] || git push-with-mr $GIT_OPTS ) &&
 echo OK 
