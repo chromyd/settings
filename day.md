@@ -11,6 +11,10 @@ ul {list-style-type: none;}
 
 - [ ] &nbsp;
 
+- [ ] &nbsp;
+
+- [ ] &nbsp;
+
 &nbsp;
 \
 \
@@ -26,3 +30,8 @@ ul {list-style-type: none;}
 - [ ] &nbsp;
 
 - [ ] &nbsp;
+
+- [ ] &nbsp;
+
+- [ ] &nbsp;
+
