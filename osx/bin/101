@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+then
+	ssh otaku 'cat 101.txt' | LESS="" less -N --use-color -DNGk
+	exit
+fi
+
+echo Downloading to edit - exit with :cq to abort
+scp otaku:101.txt /tmp &&
+echo >> /tmp/101.txt &&
+vi +$ +startinsert /tmp/101.txt &&
+scp /tmp/101.txt otaku: || (pbcopy < /tmp/101.txt && echo Not copied - see clipboard)
+
+echo -n "Removing local copy..."
+
+rm /tmp/101.txt && echo OK
