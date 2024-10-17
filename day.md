@@ -21,13 +21,13 @@ ul {list-style-type: none;}
 
 ## WORK
 
-- [ ] &nbsp;
+- [ ] Pflichtschulungen in der lernwelt prüfen
 
-- [ ] &nbsp;
+- [ ] Prepare Tech-Talk (Azure WS Usage - maybe Fashion MNIST?)
 
-- [ ] &nbsp;
+- [ ] Bicep Tutorial
 
-- [ ] &nbsp;
+- [ ] Open MR Logging (see also stashed changes)
 
 - [ ] &nbsp;
 
@@ -41,9 +41,9 @@ ul {list-style-type: none;}
 
 ## PRIVATE
 
-- [ ] &nbsp;
+- [ ] dát do opravy boty (Meindl)
 
-- [ ] &nbsp;
+- [ ] technická Subaru
 
 - [ ] &nbsp;
 

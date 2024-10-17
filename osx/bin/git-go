@@ -12,7 +12,7 @@ fi
 
 if [ -r package.json ]
 then
-	LINT_CMD="npx lint-staged"
+	LINT_CMD="lint-staged"
 	TEST_CMD="npm run test --if-present"
 	NO_TESTS=0
 fi
@@ -65,7 +65,7 @@ do
 			ISSUE_NAME=""
 			;;
 		-x)
-			ISSUE_NAME=""
+			set -x
 			;;
 		-i)
 			ISSUE_NAME=$2
@@ -84,6 +84,7 @@ then
 fi
 
 ((!$#)) && echo No commit message as parameter, command ignored! && exit 1
+git status -s > /dev/null || exit 1
 git status -s | grep -q '^??' && echo Untracked files exist, please add them manually if intended: && git status -s && exit 1
 
 ([ "$NO_LINT" = "1" ] || $LINT_CMD ) &&

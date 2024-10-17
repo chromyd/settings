@@ -1,22 +1,22 @@
-alias §='remap'
-alias §§='unmap'
+#alias §='remap'
+#alias §§='unmap'
 #alias decrypt='openssl enc -d -aes-128-cbc -a'
 #alias encrypt='openssl enc -aes-128-cbc -salt -a'
-alias decrypt='pipeship secrets decrypt'
-alias encrypt='pipeship secrets encrypt --use-gpg'
+#alias decrypt='pipeship secrets decrypt'
+#alias encrypt='pipeship secrets encrypt --use-gpg'
 
 alias json='python3 -m json.tool'
 alias pod='podman machine start && podman-compose up'
 
-alias gcloud=~/.local/google-cloud-sdk/bin/gcloud
+#alias gcloud=~/.local/google-cloud-sdk/bin/gcloud
 alias clear="printf '\e[2J\e[3J\e[H'"
 
 alias ll='ls -l'
 
-alias w='npm run dev:watch'
-unalias l
+#alias w='npm run dev:watch'
+#unalias l
 #alias l='arch -x86_64 npm run dev:local --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
-alias lnc='arch -x86_64 npm run dev:local-no-clone --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
+#alias lnc='arch -x86_64 npm run dev:local-no-clone --dtcw=local && echo -e "Finished at \e[38;5;82m$(date +%H:%M)"'
 
 ## Unalias unneeded plugin aliases/functions:
 # macos
@@ -54,4 +54,5 @@ alias nrsd='npm run start:dev'
 alias revkroki="python -c \"import sys,base64,zlib,re; print(zlib.decompress(base64.urlsafe_b64decode(re.sub('.*/','',sys.stdin.read().strip()).encode('ascii'))).decode('utf-8'))\""
 alias rlock='pnpm i && g add pnpm-lock.yaml && g rebase --continue' 
 
-alias prsy='code ~/Documents/prsy.txt'
+#alias prsy='code ~/Documents/prsy.txt'
+#alias pan='echo t1-465421 | pbcopy && echo PAN username copied to clipboard'
