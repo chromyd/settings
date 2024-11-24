@@ -44,18 +44,10 @@ unset -f freespace
 # git
 unalias gco
 
-#alias dgo='clear && git co docs && git clean -f && mkdir -p docs/img/dir{1,2,3} && (cd extensions && node docusaurus-adapter.js)'
-alias dgo='clear && git co docs && git clean -f && cp ~/pipeline.mdx docs/pipeline-modules/products/deploy_aws_iac_cdk_java && (cd extensions && node docusaurus-adapter.js)'
-
-alias nrsd='npm run start:dev'
-
-# alias day='clear && head -30 ~/daily ~/TODOs'
-
 alias revkroki="python -c \"import sys,base64,zlib,re; print(zlib.decompress(base64.urlsafe_b64decode(re.sub('.*/','',sys.stdin.read().strip()).encode('ascii'))).decode('utf-8'))\""
 alias rlock='pnpm i && g add pnpm-lock.yaml && g rebase --continue' 
 
-#alias prsy='code ~/Documents/prsy.txt'
-#alias pan='echo t1-465421 | pbcopy && echo PAN username copied to clipboard'
-
 alias finder='echo Finder help:\\n    ofd .. opens finder with the current shell directory\\n    pfd .. prints the current finder directory\\n    cfd .. changes the shell directory to the current finder directory'
 alias f=finder
+
+alias dkb="ssh otaku 'head -1 dkb.txt' | pbcopy && echo Ok"
