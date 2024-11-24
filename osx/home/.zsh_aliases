@@ -56,3 +56,6 @@ alias rlock='pnpm i && g add pnpm-lock.yaml && g rebase --continue'
 
 #alias prsy='code ~/Documents/prsy.txt'
 #alias pan='echo t1-465421 | pbcopy && echo PAN username copied to clipboard'
+
+alias finder='echo Finder help:\\n    ofd .. opens finder with the current shell directory\\n    pfd .. prints the current finder directory\\n    cfd .. changes the shell directory to the current finder directory'
+alias f=finder

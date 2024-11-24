@@ -21,13 +21,12 @@ ul {list-style-type: none;}
 
 ## WORK
 
-- [ ] Pflichtschulungen in der lernwelt prüfen
+- [ ] try with Canvas:
+  - [ ] https://catalog.us-east-1.prod.workshops.aws/workshops/80ba0ea5-7cf9-4b8c-9d3f-1cd988b6c071/en-US/1-use-cases/1-marketing
+  - [ ] https://catalog.us-east-1.prod.workshops.aws/workshops/80ba0ea5-7cf9-4b8c-9d3f-1cd988b6c071/en-US/1-use-cases/3-retail
 
-- [ ] Prepare Tech-Talk (Azure WS Usage - maybe Fashion MNIST?)
-
-- [ ] Bicep Tutorial
-
-- [ ] Open MR Logging (see also stashed changes)
+- [ ] try with SMS Domain (JupyterLab)
+  - [ ] https://git.tech.rz.db.de/pet-demo/trainings/aip
 
 - [ ] &nbsp;
 
@@ -41,13 +40,10 @@ ul {list-style-type: none;}
 
 ## PRIVATE
 
-- [ ] dát do opravy boty (Meindl)
-
-- [ ] technická Subaru
+- [ ] vyzvednout z opravy boty (Meindl)
 
 - [ ] &nbsp;
 
 - [ ] &nbsp;
 
 - [ ] &nbsp;
-

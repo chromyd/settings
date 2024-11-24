@@ -104,3 +104,13 @@ function l() {
 function update_all() {
 	find ~/ws -type d -name .git
 }
+
+function rr() {
+
+	while [ $(git status -s | grep '^UU' | wc -l) = 1 ] && [ $(git status -s | grep '^UU' | grep 'pnpm-lock.yaml' | wc -l) = 1 ]
+	do
+		echo Running rlock...
+		pnpm install && git add pnpm-lock.yaml && GIT_EDITOR=true git rebase --continue
+	done
+	git status -s
+}
