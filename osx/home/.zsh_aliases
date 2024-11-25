@@ -51,3 +51,4 @@ alias finder='echo Finder help:\\n    ofd .. opens finder with the current shell
 alias f=finder
 
 alias dkb="ssh otaku 'head -1 dkb.txt' | pbcopy && echo Ok"
+alias pan="echo t1-465421 | pbcopy && echo Ok"
