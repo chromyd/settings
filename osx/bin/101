@@ -2,17 +2,25 @@
 
 if [ -z "$1" ]
 then
-	ssh otaku 'cat 101.txt' | LESS="" less -N --use-color -DNGk
+	ssh -t otaku ./o &&
+	ssh otaku 'cat 101.txt' | LESS="" less -N --use-color -DNGk &&
+	ssh otaku ./c
 	exit
 fi
 
-echo Downloading to edit - exit with :cq to abort
-scp otaku:101.txt /tmp &&
-# echo >> /tmp/101.txt &&
-# vi +$ +startinsert /tmp/101.txt &&
-vi +$ /tmp/101.txt &&
-scp /tmp/101.txt otaku: || (pbcopy < /tmp/101.txt && echo Not copied - see clipboard)
+if [ "$1" == "u" ]
+then
+	echo Updating main archive
+	ssh -t otaku ./update
+	exit
+fi
 
-echo -n "Removing local copy..."
+echo 'Downloading to edit - exit with :cq to abort - finish with "101 u"'
+ssh -t otaku ./open &&
+scp otaku:101.txt /tmp && # echo >> /tmp/101.txt && vi +$ +startinsert /tmp/101.txt &&
+vi +$ /tmp/101.txt &&
+scp /tmp/101.txt otaku: || (cp /tmp/{,.}101.txt && echo Not copied - see hidden file)
+
+echo -n 'Removing local copy...'
 
 rm /tmp/101.txt && echo OK

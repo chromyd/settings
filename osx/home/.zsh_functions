@@ -114,3 +114,40 @@ function rr() {
 	done
 	git status -s
 }
+
+function v() {
+	if [ ! -r dotenv-sample ]
+	then
+		echo "No dotenv-sample found in current directory - exiting"
+		return
+	fi
+	echo "Setting python virtual env..." &&
+	python -m venv env &&
+	echo "Activating it..." &&
+	source ./env/bin/activate &&
+	echo "Installing requirements..." &&
+	pip install -r requirements.txt &&
+	if [ ! -r .env ]
+	then
+		echo "Copying dotenv-sample to .env"
+		cp dotenv-sample .env
+	fi
+}
+
+function token() {
+	TOKEN=$(pbpaste)
+	if [ ! -r .env ]
+	then
+		echo No .env file found here
+		return
+	fi
+
+	if [ ${TOKEN:0:2} != 'ey' ]
+	then
+		echo No access token found in clipboard
+		return
+	fi
+
+	echo ACCESS_TOKEN=${TOKEN} > .env
+	echo Token updated in .env
+}

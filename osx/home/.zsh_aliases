@@ -47,8 +47,14 @@ unalias gco
 alias revkroki="python -c \"import sys,base64,zlib,re; print(zlib.decompress(base64.urlsafe_b64decode(re.sub('.*/','',sys.stdin.read().strip()).encode('ascii'))).decode('utf-8'))\""
 alias rlock='pnpm i && g add pnpm-lock.yaml && g rebase --continue' 
 
-alias finder='echo Finder help:\\n    ofd .. opens finder with the current shell directory\\n    pfd .. prints the current finder directory\\n    cfd .. changes the shell directory to the current finder directory'
+alias finder='echo Finder help:\\n    ofd .. opens finder with the current shell directory\\n    pfd .. prints the current finder directory\\n    cdf .. changes the shell directory to the current finder directory'
 alias f=finder
 
 alias dkb="ssh otaku 'head -1 dkb.txt' | pbcopy && echo Ok"
 alias pan="echo t1-465421 | pbcopy && echo Ok"
+
+alias ab='npm run nx -- affected --base=last-release --target=build'
+alias ba='npm run nx -- affected --base=last-release --target=build'
+
+alias at='npm run nx -- affected --base=last-release --target=test'
+alias ta='npm run nx -- affected --base=last-release --target=test'

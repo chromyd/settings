@@ -1,0 +1,32 @@
+#!/bin/bash
+
+SUFFIX=";E-031647-995-05;8;;AIP Weiterentw. Portfolio;;"
+
+is_working_day() {
+  local offset=$1
+  day_of_week=$(date -v -${offset}d +%u)
+  if [[ $day_of_week -lt 6 ]]
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
+if [ -z "$1" ]
+then
+  echo "Usage: $0 <number_of_days>"
+  exit 1
+fi
+
+N=$1
+N=$((N - 1))
+
+while [ ${N} -ge 0 ]
+do
+  if is_working_day ${N}
+  then
+    echo $(date -v -${N}d +%d.%m.%Y)${SUFFIX}
+  fi
+  N=$((N - 1))
+done
