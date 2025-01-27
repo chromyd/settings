@@ -151,3 +151,13 @@ function token() {
 	echo ACCESS_TOKEN=${TOKEN} > .env
 	echo Token updated in .env
 }
+
+function npm() {
+	if [[ install = ${1:-x}* ]]
+	then
+		echo "You tried to run 'npm install' but most likely you intented to run 'pnpm install'."
+		echo "Please run 'pnpm i' instead."
+		return 1
+	fi	
+	$(tr ':' '\n' <<< ${PATH} | grep -F '/.nvm/')/npm $*
+}

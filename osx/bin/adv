@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SUFFIX=";E-031647-995-05;8;;AIP Weiterentw. Portfolio;;"
+SUFFIX=";E-031647-995-05;8;AIP Weiterentw. Portfolio;;;"
 
 is_working_day() {
   local offset=$1
@@ -13,6 +13,21 @@ is_working_day() {
   fi
 }
 
+get_file_name() {
+  local prefix=$(date +"M%m")
+  local suffix=.csv
+
+  for x in "" {a..z}
+  do
+    if [ ! -e ${prefix}${x}${suffix} ]
+    then
+       echo ${prefix}${x}${suffix} 
+       return
+    fi
+  done
+  echo ${prefix}$$${suffix}
+}
+
 if [ -z "$1" ]
 then
   echo "Usage: $0 <number_of_days>"
@@ -21,12 +36,15 @@ fi
 
 N=$1
 N=$((N - 1))
+FILE=$(get_file_name)
+
+echo Writing output to ${FILE}
 
 while [ ${N} -ge 0 ]
 do
   if is_working_day ${N}
   then
-    echo $(date -v -${N}d +%d.%m.%Y)${SUFFIX}
+    echo $(date -v -${N}d +%d.%m.%Y)${SUFFIX} | tee -a "${FILE}"
   fi
   N=$((N - 1))
 done

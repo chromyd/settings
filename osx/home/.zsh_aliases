@@ -58,3 +58,8 @@ alias ba='npm run nx -- affected --base=last-release --target=build'
 
 alias at='npm run nx -- affected --base=last-release --target=test'
 alias ta='npm run nx -- affected --base=last-release --target=test'
+
+alias al='npm run nx -- affected --base=last-release --target=lint'
+alias la='npm run nx -- affected --base=last-release --target=lint'
+
+#alias npm=pnpm

@@ -1,26 +1,11 @@
 #!/bin/bash
 
+FILE="/Users/dusanchromy/Library/Mobile Documents/com~apple~TextEdit/Documents/101.txt"
+
 if [ -z "$1" ]
 then
-	ssh -t otaku ./o &&
-	ssh otaku 'cat 101.txt' | LESS="" less -N --use-color -DNGk &&
-	ssh otaku ./c
+	LESS="" less -N --use-color -DNGk "${FILE}"
 	exit
 fi
 
-if [ "$1" == "u" ]
-then
-	echo Updating main archive
-	ssh -t otaku ./update
-	exit
-fi
-
-echo 'Downloading to edit - exit with :cq to abort - finish with "101 u"'
-ssh -t otaku ./open &&
-scp otaku:101.txt /tmp && # echo >> /tmp/101.txt && vi +$ +startinsert /tmp/101.txt &&
-vi +$ /tmp/101.txt &&
-scp /tmp/101.txt otaku: || (cp /tmp/{,.}101.txt && echo Not copied - see hidden file)
-
-echo -n 'Removing local copy...'
-
-rm /tmp/101.txt && echo OK
+vi "${FILE}"

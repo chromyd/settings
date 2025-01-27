@@ -21,12 +21,11 @@ ul {list-style-type: none;}
 
 ## WORK
 
-- [ ] try with Canvas:
-  - [ ] https://catalog.us-east-1.prod.workshops.aws/workshops/80ba0ea5-7cf9-4b8c-9d3f-1cd988b6c071/en-US/1-use-cases/1-marketing
-  - [ ] https://catalog.us-east-1.prod.workshops.aws/workshops/80ba0ea5-7cf9-4b8c-9d3f-1cd988b6c071/en-US/1-use-cases/3-retail
+- [ ] check running JupyterServer & KernelGateway apps
 
-- [ ] try with SMS Domain (JupyterLab)
-  - [ ] https://git.tech.rz.db.de/pet-demo/trainings/aip
+- [ ] check disabling Studio Classic in aidevops
+
+- [ ] check how to friend "Apply n suggestion(s)" with commitlint
 
 - [ ] &nbsp;
 
@@ -40,7 +39,7 @@ ul {list-style-type: none;}
 
 ## PRIVATE
 
-- [ ] vyzvednout z opravy boty (Meindl)
+- [ ] &nbsp;
 
 - [ ] &nbsp;
 
