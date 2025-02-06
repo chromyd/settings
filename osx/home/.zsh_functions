@@ -152,7 +152,7 @@ function token() {
 	echo Token updated in .env
 }
 
-function npm() {
+function xnpm() {
 	if [[ install = ${1:-x}* ]]
 	then
 		echo "You tried to run 'npm install' but most likely you intented to run 'pnpm install'."
@@ -160,4 +160,16 @@ function npm() {
 		return 1
 	fi	
 	$(tr ':' '\n' <<< ${PATH} | grep -F '/.nvm/')/npm $*
+}
+
+function a() {
+	for target in build lint test typecheck
+	do
+		if [[ ${target} = ${1:-}* ]]
+		then
+			echo npm run nx -- affected --base=last-release --target=${target}
+			npm run nx -- affected --base=last-release --target=${target}
+			return
+		fi	
+	done
 }
