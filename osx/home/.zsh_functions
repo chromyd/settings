@@ -172,4 +172,16 @@ function a() {
 			return
 		fi	
 	done
+
+	echo npm run nx -- affected --base=last-release --target=$1
+	npm run nx -- affected --base=last-release --target=$1
+}
+
+function pgnfilter() {
+	if (($# != 2))
+	then
+		echo Usage: pgnfilter SEARCHSTRING PGNFILE
+		return 1
+	fi
+	awk -v query=$1 -f ~/bin/pgnfilter.awk $2
 }

@@ -21,11 +21,11 @@ ul {list-style-type: none;}
 
 ## WORK
 
-- [ ] check running JupyterServer & KernelGateway apps
+- [ ] create new ticket for OCM23 billing
 
-- [ ] check disabling Studio Classic in aidevops
+- [ ] &nbsp;
 
-- [ ] check how to friend "Apply n suggestion(s)" with commitlint
+- [ ] &nbsp;
 
 - [ ] &nbsp;
 

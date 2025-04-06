@@ -85,7 +85,7 @@ plugins=(git z macos oc)
 source $ZSH/oh-my-zsh.sh
 
 setopt HIST_IGNORE_ALL_DUPS
-unsetopt HIST_VERIFY
+#unsetopt HIST_VERIFY
 
 [ -f ~/.nvm_init ] && source ~/.nvm_init
 [ -f ~/.zsh_functions ] && source ~/.zsh_functions
@@ -137,3 +137,5 @@ esac
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export personalArtifactoryToken=$(cat ~/.artifactoryToken)

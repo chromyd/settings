@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+then
+    echo Usage: yu CHAPTER_NUMBER
+    exit 1
+fi
+
+BOOK=yusupov-1-2
+
+for ex in {1..12}
+do
+    echo Ex $1-${ex}
+    echo $'1. \n'
+done > ${BOOK}-$1.txt
+
+code ${BOOK}-$1.txt
