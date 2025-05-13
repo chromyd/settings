@@ -8,7 +8,7 @@
 MR_TITLE=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | tr '-' ' ' | sed 's/AIPD /AIPD-/' | sed 's/AIPO /AIPO-/')
 
 cat << EOF
-git push -o merge_request.create -o merge_request.title="${MR_TITLE}" $*
+git push -o merge_request.create -o merge_request.title="${MR_TITLE}" -o merge_request.label="${MR_TITLE%% *}" $*
 EOF
 
-git push -o merge_request.create -o merge_request.title="${MR_TITLE}" $*
+git push -o merge_request.create -o merge_request.title="${MR_TITLE}" -o merge_request.label="${MR_TITLE%% *}" $*

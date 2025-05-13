@@ -52,3 +52,7 @@ alias f=finder
 
 alias dkb="ssh otaku 'head -1 dkb.txt' | pbcopy && echo Ok"
 alias pan="echo t1-465421 | pbcopy && echo Ok"
+
+# oci
+alias skopeo='docker run -it --rm --entrypoint sh -v $(pwd):/data quay-remote.bahnhub.tech.rz.db.de/skopeo/stable'
+alias buildah='docker run -it --privileged --rm --entrypoint sh -e STORAGE_DRIVER=vfs -v $(pwd):/data quay-remote.bahnhub.tech.rz.db.de/buildah/stable'
