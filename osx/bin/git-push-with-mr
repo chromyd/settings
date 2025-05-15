@@ -5,7 +5,7 @@
 # You can set this option globally by running:
 # git config --global push.autosetupremote true
 
-MR_TITLE=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | tr '-' ' ' | sed 's/AIPD /AIPD-/' | sed 's/AIPO /AIPO-/')
+MR_TITLE=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | tr '-' ' ' | sed 's/AIPD /AIPD-/i' | sed 's/AIPO /AIPO-/i')
 ISSUE_NO=${MR_TITLE%% *}
 
 case ${REQUIRE_ISSUE:-y} in
