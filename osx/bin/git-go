@@ -87,6 +87,7 @@ fi
 git status -s > /dev/null || exit 1
 git status -s | grep -q '^??' && echo Untracked files exist, please add them manually if intended: && git status -s && exit 1
 
+([ "$(basename $(pwd))" != "docker-pipeline" ] || labdoc generate --repoUrl https://git.tech.rz.db.de/kip/aws/infrastructure/cicd/docker-pipeline) &&
 ([ "$NO_LINT" = "1" ] || $LINT_CMD ) &&
 ([ "$NO_FORMAT" = "1" ] || $FORMAT_CMD ) &&
 ([ "$NO_TESTS" = "1" ] || $TEST_CMD ) &&

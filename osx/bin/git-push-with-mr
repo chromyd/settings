@@ -6,9 +6,30 @@
 # git config --global push.autosetupremote true
 
 MR_TITLE=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | tr '-' ' ' | sed 's/AIPD /AIPD-/' | sed 's/AIPO /AIPO-/')
+ISSUE_NO=${MR_TITLE%% *}
 
-cat << EOF
-git push -o merge_request.create -o merge_request.title="${MR_TITLE}" -o merge_request.label="${MR_TITLE%% *}" $*
+case ${REQUIRE_ISSUE:-y} in
+    y*)
+        if [ $(expr ${ISSUE_NO} : 'AIP[DO]-[0-9][0-9]*$') = 0 ]
+        then
+            echo "The detected issue number \"${ISSUE_NO}\" is not \"AIPD-\" or \"AIPO-\" followed by a number."
+            echo "If you want to continue without detecting an issue number please execute:"
+            echo
+            echo "export REQUIRE_ISSUE=n"
+            echo
+            echo "and then \"git push-with-mr\" again"
+            exit 1
+        fi
+        cat << EOF
+git push -o merge_request.create -o merge_request.title="${MR_TITLE}" -o merge_request.label="${ISSUE_NO}" $*
 EOF
 
-git push -o merge_request.create -o merge_request.title="${MR_TITLE}" -o merge_request.label="${MR_TITLE%% *}" $*
+        git push -o merge_request.create -o merge_request.title="${MR_TITLE}" -o merge_request.label="${ISSUE_NO}" $*
+        exit
+esac
+
+cat << EOF
+git push -o merge_request.create -o merge_request.title="${MR_TITLE}" $*
+EOF
+
+git push -o merge_request.create -o merge_request.title="${MR_TITLE}" $*
