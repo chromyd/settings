@@ -56,3 +56,11 @@ alias pan="echo t1-465421 | pbcopy && echo Ok"
 # oci
 alias skopeo='docker run -it --rm --entrypoint sh -v $(pwd):/data quay-remote.bahnhub.tech.rz.db.de/skopeo/stable'
 alias buildah='docker run -it --privileged --rm --entrypoint sh -e STORAGE_DRIVER=vfs -v $(pwd):/data quay-remote.bahnhub.tech.rz.db.de/buildah/stable'
+
+# showing/counting commits up to main
+alias co='git log --oneline --decorate --color=always | awk "/(main)/ {print; exit} {print}"'
+alias coco='echo $(git log --oneline --decorate --color=always | awk "/(main)/ {print; exit} {print}" | wc -l)'
+alias cco=coco
+
+# git rebase interactive from main
+alias grim='git rebase -i HEAD~$(coco)'
