@@ -1,0 +1,49 @@
+#!/bin/bash
+# grmr - lists SHAs of commits of Green Renovate Merge Requests
+
+MRS_FILE=~/.green-mrs
+TOKEN=$(cat ~/glpat)
+
+if [ "$1" = "-d" ]
+then
+  echo Hit return to delete these MRs or Ctrl-C to abort:
+  cat ${MRS_FILE} | jq -s '.[] | (.iid|tostring) + ": " + .title'
+  echo -n
+  read -n 1
+  echo Ok deleting...
+  for iid in $(cat ${MRS_FILE} | jq -s -r '.[] | .iid')
+  do
+    if curl -s -f -X DELETE --header "PRIVATE-TOKEN: ${TOKEN}" "https://git.tech.rz.db.de/api/v4/projects/217348/merge_requests/${iid}"
+    then
+      echo Deleted ${iid}
+    else
+      echo -n
+      echo Failed to delete ${iid}
+    fi
+  done
+  exit
+fi
+
+mrs=$(curl -s --header "PRIVATE-TOKEN: ${TOKEN}" 'https://git.tech.rz.db.de/api/v4/projects/217348/merge_requests?per_page=100&state=opened' | jq 'map(select(.labels | index("renovate")) | {title,iid,sha,state,merge_request_status,source_branch})')
+
+# echo "${mrs}" | jq
+
+branches=$(echo "${mrs}" | jq -r '.[] | .source_branch')
+
+# echo Branches: ${branches}
+rm -f ${MRS_FILE}
+
+# echo Checking pipeline status of $(echo "${mrs}" | jq 'length') branches >&2
+for branch in ${branches}
+do
+  # echo "Branch: ${branch}"
+  status=$(
+    curl -s --header "PRIVATE-TOKEN: ${TOKEN}" "https://git.tech.rz.db.de/api/v4/projects/217348/pipelines?ref=${branch}&order_by=updated_at" |
+    jq -r 'map(select(.status != "skipped" and .status != "scheduled" and .status != "manual")) | .[0].status'
+  )
+  if [[ ${status} == "success" ]]
+  then
+    echo "${mrs}" | jq -r --arg branch ${branch} '.[] | select(.source_branch == $branch) | .sha'
+    echo "${mrs}" | jq -r --arg branch ${branch} '.[] | select(.source_branch == $branch)' >> ${MRS_FILE}
+  fi
+done

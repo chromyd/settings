@@ -1,0 +1,33 @@
+#!/bin/bash
+set +eux
+
+# Integrate commits one-by-one
+for hash in $(grmr)
+do
+  sleep 3s
+  git cherry-pick ${hash}
+  sleep 3s
+  git checkout main pnpm-lock.yaml
+
+  if git diff --name-only --diff-filter=U --relative package.json | grep '.'
+  then
+    echo "Please fix merge conflicts in package.json and hit return"
+    read -n 1
+  else
+    echo "No merge conflict detected, proceeding..."
+  fi
+
+  pnpm install
+  sleep 3s
+  git add .
+  sleep 3s
+
+  # Either continue the cherry-pick (if there were conflicts) or just amend
+  # the changes to the lockfile to the latest commit.
+  git cherry-pick --continue || git commit --amend --no-edit
+  sleep 3s
+done
+
+echo -n
+echo "Now please create a new MR for this branch"
+echo "To clean up all green MRs you can run the command 'grmr -d'"
