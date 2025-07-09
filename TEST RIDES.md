@@ -59,9 +59,25 @@ The salesman said most of the bikes they sell with DCT (automatic gears).
 Contact: Dirk. He said that DesertX has desmo and that Multistradas are not really meant for offroading.
 
 - nice on curvy roads
-- appears to be good for offroad
+- makes the impression that it is good offroad
 <div class="bad">
 
 - lot of buffeting at higher speeds (from 100 km/h)
 - unpleasant grunting sound
+</div>
+
+## BMW R1300GS
+
+Contact: Jost. He said that he prefers automatic ASA gears.
+
+- comfy on the Autobahn (this is a mile eater!)
+- adaptive height control works unnoticebly good!
+- probably have I never gone so fast on a motorcycle (about 175 kph)
+
+<div class="bad">
+- feels as heavy as it is
+- does not ask to be revved
+- engine sound is not bad but not appealing either
+- not making me super confident on curvy roads (like Burg Frankenstein)
+- feels like offroading with this beast is only for pros
 </div>
