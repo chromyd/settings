@@ -29,5 +29,6 @@ do
 done
 
 echo -n
-echo "Now please create a new MR for this branch"
+echo -n
+echo "Now please push to the branch and create a new MR for it. You can do both with 'git push-with-mr'"
 echo "To clean up all green MRs you can run the command 'grmr -d'"

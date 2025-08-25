@@ -21,11 +21,11 @@ ul {list-style-type: none;}
 
 ## WORK
 
-- [ ] create new ticket for OCM23 billing
+- [ ] submit renovate PR
 
-- [ ] &nbsp;
+- [ ] update ticket with lambdas
 
-- [ ] &nbsp;
+- [ ] create a MR for poor man's auto-merge
 
 - [ ] &nbsp;
 

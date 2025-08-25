@@ -126,11 +126,12 @@ export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;
 export LESS="--no-init --quit-if-one-screen -R"
 
 # pnpm
-export PNPM_HOME="/Users/dusanchromy/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# Disable pnpm since currently I install pnpm globally in each nvm environment
+#export PNPM_HOME="/Users/dusanchromy/Library/pnpm"
+#case ":$PATH:" in
+#  *":$PNPM_HOME:"*) ;;
+#  *) export PATH="$PNPM_HOME:$PATH" ;;
+#esac
 # pnpm end
 
 # eval "$(starship init zsh)"

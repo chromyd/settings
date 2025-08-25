@@ -14,13 +14,13 @@ function gdl() {
 	ID=""
 	INPUT=$(pbpaste)
 	APIKEY=$(cat ~/.google-api-key)
-	if [ ! -z "$1" ]
+	if [ ! -z "$*" ]
 	then
-		ID="n=$1&"
+		ID="n=$(echo $* | tr "a-z " "A-Z_")&"
 	fi
 	TRAILING=${INPUT#https://drive.google.com/file/d/}
 	FILEID=${TRAILING%/*}
-	if [[ $FILEID =~ ^[A-Za-z0-9_-]*$ ]]
+	if [[ $FILEID =~ ^[A-Za-z0-9_-][A-Za-z0-9_-]*$ ]]
 	then
 		URL="https://www.googleapis.com/drive/v3/files/$FILEID?${ID}alt=media&key=$APIKEY"
 		echo $URL | pbcopy
