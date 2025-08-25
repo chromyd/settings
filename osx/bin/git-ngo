@@ -1,0 +1,3 @@
+#!/bin/bash
+
+REQUIRE_ISSUE=n git go $*
