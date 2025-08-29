@@ -5,7 +5,7 @@ ul {list-style-type: none;}
 
 ## DAILY
 
-- [ ] &nbsp;
+- [ ] mention locked PAN workspace
 
 - [ ] &nbsp;
 
@@ -21,11 +21,11 @@ ul {list-style-type: none;}
 
 ## WORK
 
-- [ ] submit renovate PR
+- [ ] locked PAN workspace: https://ipt.jaas.service.deutschebahn.com/servicedesk/customer/portal/2/SATSD-7134
 
-- [ ] update ticket with lambdas
+- [ ] follow up on renovate PR
 
-- [ ] create a MR for poor man's auto-merge
+- [ ] &nbsp;
 
 - [ ] &nbsp;
 
