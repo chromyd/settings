@@ -6,4 +6,4 @@ sort_by(.date)
         sum: (map(.outcome) | add),
         avg: (map(.outcome) | add / length)
     })
-    | @csv
+#    | @csv
