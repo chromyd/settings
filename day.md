@@ -5,7 +5,7 @@ ul {list-style-type: none;}
 
 ## DAILY
 
-- [ ] mention locked PAN workspace
+- [ ] &nbsp;
 
 - [ ] &nbsp;
 
@@ -21,9 +21,9 @@ ul {list-style-type: none;}
 
 ## WORK
 
-- [ ] locked PAN workspace: https://ipt.jaas.service.deutschebahn.com/servicedesk/customer/portal/2/SATSD-7134
+- [ ] &nbsp;
 
-- [ ] follow up on renovate PR
+- [ ] &nbsp;
 
 - [ ] &nbsp;
 
