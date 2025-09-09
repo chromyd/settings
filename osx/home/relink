@@ -1,0 +1,12 @@
+#!/bin/sh
+
+for file in ~/.zshrc ~/.zsh_aliases ~/.zsh_functions
+do
+	if [ -r $file ]
+	then
+		echo Hard linking $file to this directory
+		ln -f $file .
+	else
+		echo Skipping file $file - not found
+	fi
+done
