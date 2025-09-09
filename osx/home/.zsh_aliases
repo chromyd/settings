@@ -6,7 +6,7 @@
 #alias encrypt='pipeship secrets encrypt --use-gpg'
 
 alias json='python3 -m json.tool'
-alias pod='podman machine start && podman-compose up'
+#alias pod='podman machine start && podman-compose up'
 
 #alias gcloud=~/.local/google-cloud-sdk/bin/gcloud
 alias clear="printf '\e[2J\e[3J\e[H'"
