@@ -1,12 +1,27 @@
 == Things to Save from an Old Mac
-* Export complete qtPass key
 
-== Software to Install
-* brew install --cask unnaturalscrollwheels
-* brew install --cask yippy
-* brew install --cask rectangle
+* .artifactoryToken
+
+== Non-Standard Software to Install
+
+* Homebrew and Git
+* Visual Studio Code
+* Rectangle (brew?)
 
 == Configuration
-Home and End keys are not working properly. Here is what I did to fix (possibly both is needed!):
-1. Identify USB Keyboard type (for instance, ANSI for US-type keyboard with backslash over return key).
-1. Redefined KeyBindings in `~/Library/KeyBindings/DefaultKeyBinding.dict` (see the file in this folder)
+
+* Swap Option and Command keys in Customize Modifier Keys
+* Use unnatural scrolling wheel direction in Mouse Settings
+
+== Steps
+
+1. Download httsp://db.de/emmmac and enroll the mac (have Key ready)
+2. Logout Intelligent Hub to enable FileVault encryption
+3. Generate new SSH key - dont bother with passphrase and ssh-agent - for GitHub and GitLab
+4. Setup Dock (icons, size), Keys, Mouse
+5. Setup Terminal from GitHub Profile, install Oh-my-Zsh with Themes
+6. Install Other Non-Standard Software (see above)
+
+== Open TODOs
+
+1. Setup sending and receiving encrypted emails

@@ -6,8 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$PATH:"$HOME"/ws/settings/osx/bin:/opt/homebrew/opt/python@3.11/libexec/bin
-export PATH=$PATH:"$HOME"/ws/settings/osx/bin
+export PATH=$PATH:$HOME/ws/github/settings/osx/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -140,3 +139,7 @@ export LESS="--no-init --quit-if-one-screen -R"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export personalArtifactoryToken=$(cat ~/.artifactoryToken)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
