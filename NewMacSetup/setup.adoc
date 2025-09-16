@@ -1,6 +1,7 @@
 == Things to Save from an Old Mac
 
 * .artifactoryToken
+* KeePassXC file
 
 == Non-Standard Software to Install
 
@@ -25,4 +26,5 @@
 
 == Open TODOs
 
-1. Setup sending and receiving encrypted emails
+1. Setup sending and receiving encrypted emails - https://db.de/zertifikatsservice_v2
+2. Setup group mailbox and calendar in Outlook
