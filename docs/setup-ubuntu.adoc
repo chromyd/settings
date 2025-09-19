@@ -1,0 +1,11 @@
+= Setup Ubuntu with VirtualBox
+
+== Installation
+
+Download ubuntu ISO image for ARM from: https://cdimage.ubuntu.com/ubuntu/releases/
+
+== User Settings
+
+. Setup terminal (export and import settings)
+. Setup Firefox start page
+. Setup git (SSH key and binary)
