@@ -16,15 +16,16 @@
 
 == Steps
 
-1. Download https://db.de/emmmac and enroll the Mac (have Key ready)
-2. Logout Intelligent Hub to enable FileVault encryption
-3. Generate new SSH key - dont bother with passphrase and ssh-agent - for GitHub and GitLab
-4. Setup Dock (icons, size), Keys, Mouse
-5. Setup Terminal from GitHub Profile, install Oh-my-Zsh with Themes
-6. Install Other Non-Standard Software (see above)
-7. Setup personal Teams Background Image: https://db-planet.deutschebahn.com/pages/db-systel-marcom-toolkit/apps/wiki/test-marke-medien/list/view/033484cd-50d9-4e35-a920-a62603b285bb (or search for "DB Systel: MarCom-Toolkit" in https://db.de/dbplanet)
+. Download https://db.de/emmmac and enroll the Mac (have Key ready)
+. Logout Intelligent Hub to enable FileVault encryption
+. Generate new SSH key - dont bother with passphrase and ssh-agent - for GitHub and GitLab
+. Setup Dock (icons, size), Keys, Mouse
+. Setup Terminal from GitHub Profile, install Oh-my-Zsh with Themes
+. Run Setup `osx/home/setup`
+. Install Other Non-Standard Software (see above)
+. Setup personal Teams Background Image: https://db-planet.deutschebahn.com/pages/db-systel-marcom-toolkit/apps/wiki/test-marke-medien/list/view/033484cd-50d9-4e35-a920-a62603b285bb (or search for "DB Systel: MarCom-Toolkit" in https://db.de/dbplanet)
 
 == Open TODOs
 
-1. Setup sending and receiving encrypted emails - https://db.de/zertifikatsservice_v2
-2. Setup group mailbox and calendar in Outlook
+. Setup sending and receiving encrypted emails - https://db.de/zertifikatsservice_v2
+. Setup group mailbox and calendar in Outlook

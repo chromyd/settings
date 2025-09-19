@@ -51,7 +51,6 @@ alias finder='echo Finder help:\\n    ofd .. opens finder with the current shell
 alias f=finder
 
 alias dkb="ssh otaku 'head -1 dkb.txt' | pbcopy && echo Ok"
-alias pan="echo t1-465421 | pbcopy && echo Ok"
 
 # oci
 alias skopeo='docker run -it --rm --entrypoint sh -v $(pwd):/data quay-remote.bahnhub.tech.rz.db.de/skopeo/stable'
@@ -64,3 +63,6 @@ alias cco=coco
 
 # git rebase interactive from main
 alias grim='git rebase -i HEAD~$(coco)'
+
+# show process running on the specified port
+alias port='lsof -nP -iTCP -sTCP:LISTEN | grep'
