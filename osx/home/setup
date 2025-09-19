@@ -1,7 +1,8 @@
 #!/bin/sh
 
 setupKeyBindings() {
-    mkdir -p ~/Library/KeyBindings/
+    { set +x; } 2>/dev/null
+    mkdir -p ~/Library/KeyBindings/ &&
     cat << EOF > ~/Library/KeyBindings/DefaultKeyBindings.dict
 {
     "\UF729"  = moveToBeginningOfLine:; // home
@@ -10,8 +11,21 @@ setupKeyBindings() {
     "$\UF72B" = moveToEndOfLineAndModifySelection:; // shift-end
 }
 EOF
+    set -x
+}
+
+setupLinks() {
+    { set +x; } 2>/dev/null
+    cd $(dirname $0) &&
+    for file in .zshrc .zsh_aliases .zsh_functions
+    do
+        echo Hard linking $file to ~
+        ln -f $file ~
+    done
+    set -x  
 }
 
 set -x
 
 setupKeyBindings
+setupLinks

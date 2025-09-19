@@ -1,7 +1,0 @@
-#!/bin/sh
-
-for file in .zshrc .zsh_aliases .zsh_functions
-do
-	echo Hard linking $file to ~
-	ln -f $file ~
-done
