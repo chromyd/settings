@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$PATH:$HOME/ws/github/settings/osx/bin
+export PATH=$PATH:$HOME/ws/github/settings/osx/bin:~/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -138,8 +138,21 @@ export LESS="--no-init --quit-if-one-screen -R"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+export gitlabAccessToken=$(cat ~/.gitlabToken)
+export customValue1=${gitlabAccessToken}
 export personalArtifactoryToken=$(cat ~/.artifactoryToken)
+export artifactoryAccessToken=$(echo -n "DusanChromy:${personalArtifactoryToken}" | base64)
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export CLOUD_HOME="/Users/dusanchromy/Library/Mobile Documents/com~apple~CloudDocs"
+
+#eval "$(ssh-agent -s)"
+#ssh-add ~/.ssh/id_ed25519
+
+#eval "$(oh-my-posh init zsh --config 'powerlevel10k_rainbow')"
+#eval "$(oh-my-posh init zsh --config 'hotstick.minimal')"
+
+export ALWAYS_VENV=1

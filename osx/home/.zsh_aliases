@@ -42,7 +42,7 @@ unset -f btrestart
 unset -f freespace
 
 # git
-unalias gco
+unalias gco gcp
 
 alias revkroki="python -c \"import sys,base64,zlib,re; print(zlib.decompress(base64.urlsafe_b64decode(re.sub('.*/','',sys.stdin.read().strip()).encode('ascii'))).decode('utf-8'))\""
 alias rlock='pnpm i && g add pnpm-lock.yaml && g rebase --continue' 
@@ -66,3 +66,6 @@ alias grim='git rebase -i HEAD~$(coco)'
 
 # show process running on the specified port
 alias port='lsof -nP -iTCP -sTCP:LISTEN | grep'
+
+alias ubuntu='virtualboxvm --startvm ubuntu24 &'
+alias ubu='virtualboxvm --startvm ubuntu24 &'

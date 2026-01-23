@@ -1,6 +1,8 @@
 #!/bin/bash
 
-NO_TESTS=1
+NO_TESTS=${NO_TESTS:-1}
+NO_LINT=${NO_LINT:-1}
+
 ISSUE_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/feature\///' | sed 's/bugfix\///' | tr _ - | cut -f 1-2 -d- | tr a-z A-Z)
 
 if [ -r nx.json ]
@@ -12,9 +14,14 @@ fi
 
 if [ -r package.json ]
 then
-	LINT_CMD="lint-staged"
+	LINT_CMD="CI=true npx lint-staged"
+	if eval ${LINT_CMD} 2>&1 | grep -q "No valid configuration found."
+	then
+		echo "No lint-staged config found - setting NO_LINT=1"
+		NO_LINT=1
+	fi
+
 	TEST_CMD="npm run test --if-present"
-	NO_TESTS=0
 fi
 
 if [ -r pom.xml ]
@@ -87,13 +94,15 @@ fi
 git status -s > /dev/null || exit 1
 git status -s | grep -q '^??' && echo Untracked files exist, please add them manually if intended: && git status -s && exit 1
 
-([ "$(basename $(pwd))" != "docker-pipeline" ] || labdoc generate --repoUrl https://git.tech.rz.db.de/kip/aws/infrastructure/cicd/docker-pipeline) &&
-([ "$NO_LINT" = "1" ] || $LINT_CMD ) &&
-([ "$NO_FORMAT" = "1" ] || $FORMAT_CMD ) &&
-([ "$NO_TESTS" = "1" ] || $TEST_CMD ) &&
+([ "$(basename $(pwd))" != "docker-pipeline" ] || (echo "Generating ci-cd docs with labdoc ..." && labdoc generate --repoUrl https://git.tech.rz.db.de/kip/aws/infrastructure/cicd/docker-pipeline )) &&
+([ "$NO_FORMAT" = "1" ] || ( echo "Formatting with ${FORMAT_CMD}..." && $FORMAT_CMD ) ) &&
+([ "$NO_TESTS" = "1" ] || ( echo "Testing with ${TEST_CMD}" && $TEST_CMD ) ) &&
 git add -u . &&
+([ "$NO_LINT" = "1" ] || ( echo "Linting with eval ${LINT_CMD} ..." && eval $LINT_CMD ) ) &&
 echo "$*" &&
 echo "Task: $ISSUE_NAME" &&
 (git diff-index --quiet HEAD || git commit -m "$*" -m "Task: $ISSUE_NAME" $GIT_OPTS) &&
 ([ "$NO_PUSH" = "1" ] || git push-with-mr $GIT_OPTS ) &&
-echo OK 
+([ "$(basename $(pwd))" != "aip-aws-services" ] || (echo "🏷️  Updating project label $ISSUE_NAME ..." && curl -fsS -o ~/.curl.log -X PUT -H "PRIVATE-TOKEN: ${customValue1}" --url "https://git.tech.rz.db.de/api/v4/projects/217348/labels/$ISSUE_NAME" -d "color=#00CED1" )) &&
+
+echo ✅ OK

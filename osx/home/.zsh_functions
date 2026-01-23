@@ -38,54 +38,24 @@ function x() {
 }
 
 function gco() {
-	local FIRST=0
-	while [[ $1 =~ ^- ]]
-	do
-		case $1 in
-			--first)
-				FIRST=1
-				;;
-			-f)
-				FIRST=1
-				;;
-			*)
-				echo Unrecognized option $1
-				exit 1
-		esac
-		shift
-	done
-
-	MATCHES=$(git branch --remote | grep -w "$*" | awk 'END {print NR}')
-	case ${MATCHES} in
-	0)
-		echo No branch matched for "\"$*\"", available branches are:
-		git branch --remote
-		false
-		;;
-	1)
-		git checkout $(git branch --remote | grep -w "$*" | sed 's/^\s*origin\///')
-		;;
-	*)
-		echo Multiple branches matched for "\"$*\"":
-		git branch --remote | grep -w "$*"
-		if [[ ${FIRST} == 1 ]]
-		then
-			echo "Checking out the first hit"
-			git checkout $(git branch --remote | grep -w "$*" | head -1 | sed 's/^\s*origin\///')
-		else
-			echo "Re-run with --first (-f) if you wish to check out the first hit"
-			false
-		fi
-		;;
-	esac
+	set -o pipefail
+	git branch -r | grep -w "$*" | sed 's/^ *origin\///' | head -1 | xargs git checkout
 }
 
 function c() {
-	if [ -z "$*" ]
+	if [ ! -z "$*" ]
 	then
-		code .
+		z "$*"
+	elif [ "$(pwd)" = "${HOME}" ]
+	then
+		z aip-aws-services
+	fi
+
+	if [ -r .devcontainer ]
+	then
+		devcontainer open
 	else
-		z "$*" && code .
+		code .
 	fi
 }
 
@@ -115,23 +85,28 @@ function rr() {
 	git status -s
 }
 
-function v() {
-	if [ ! -r dotenv-sample ]
+function venv() {
+	if [ ! -r dotenv-sample ] && [ ! -r dotenv-sample-access-token ] && [ "${ALWAYS_VENV}" != "1" ]
 	then
 		echo "No dotenv-sample found in current directory - exiting"
 		return
 	fi
 	echo "Setting python virtual env..." &&
-	python -m venv env &&
+	python3 -m venv env &&
 	echo "Activating it..." &&
 	source ./env/bin/activate &&
-	echo "Installing requirements..." &&
-	pip install -r requirements.txt &&
-	if [ ! -r .env ]
+	if [ -r requirements.txt ]
+	then
+		echo "Installing requirements..."
+		pip install -r requirements.txt
+	fi &&
+	if [ ! -r .env ] && [ -r dotenv-sample ]
 	then
 		echo "Copying dotenv-sample to .env"
 		cp dotenv-sample .env
+		vi .env
 	fi
+	echo "✅ python venv ready"
 }
 
 function token() {
@@ -184,4 +159,16 @@ function pgnfilter() {
 		return 1
 	fi
 	awk -v query=$1 -f ~/bin/pgnfilter.awk $2
+}
+
+function gcc() {
+	git config user.email Dusan.Chromy@deutschebahn.com
+	git config user.name DusanChromy
+	git config list | grep user
+}
+
+function gcp() {
+	git config user.email dusan.chromy@yahoo.de
+	git config user.name chromyd
+	git config list | grep user
 }
