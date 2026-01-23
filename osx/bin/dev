@@ -2,7 +2,7 @@
 
 #SUFFIX=";E-031647-995-05;8;AIP Weiterentw. Portfolio;;;"
 #SUFFIX=";H-451008-11-01;8;AI Workbench Betriebskosten;;;"
-psp_dev=E-031647-995-05
+psp_dev=E-031683-995-01
 psp_ops=H-451008-11-01
 
 is_working_day() {
@@ -59,12 +59,14 @@ esac
 cd ~/adv
 
 n=$1
+m=${2:-${n}}
 n=$((n - 1))
+m=$((m - 1))
 file=$(get_file_name)
 
 echo Writing output to ${file}
 
-while [ ${n} -ge 0 ]
+while [[ $m -ge 0 && $n -ge 0 ]]
 do
   if is_working_day ${n}
   then
@@ -72,6 +74,7 @@ do
     do
       echo $(date -v -${n}d +%d.%m.%Y)${suffix} | tee -a "${file}"
     done
+    m=$((m - 1))
   fi
   n=$((n - 1))
 done
