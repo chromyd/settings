@@ -7,6 +7,25 @@
 
 MR_TITLE=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | tr '-' ' ' | sed 's/AIPD /AIPD-/i' | sed 's/AIPO /AIPO-/i')
 ISSUE_NO=${MR_TITLE%% *}
+EXTRA_LABEL_OPTION=""
+
+while [[ $1 =~ ^- ]]
+do
+	case $1 in
+		-i)
+			ISSUE_NO=$(echo $2 | tr '[:lower:]' '[:upper:]')
+			shift
+			;;
+		-l)
+			EXTRA_LABEL_OPTION="-o merge_request.label=$2"
+			shift
+			;;
+		*)
+			echo Unrecognized parameter $1
+			exit 1
+	esac
+	shift
+done
 
 case ${REQUIRE_ISSUE:-y} in
     y*)
@@ -21,10 +40,10 @@ case ${REQUIRE_ISSUE:-y} in
             exit 1
         fi
         cat << EOF
-git push -o merge_request.create -o merge_request.title="${MR_TITLE}" -o merge_request.label="${ISSUE_NO}" $*
+git push -o merge_request.create -o merge_request.title="${MR_TITLE}" -o merge_request.label="${ISSUE_NO}" ${EXTRA_LABEL_OPTION} $*
 EOF
 
-        git push -o merge_request.create -o merge_request.title="${MR_TITLE}" -o merge_request.label="${ISSUE_NO}" $*
+        git push -o merge_request.create -o merge_request.title="${MR_TITLE}" -o merge_request.label="${ISSUE_NO}" ${EXTRA_LABEL_OPTION} $*
         exit
 esac
 

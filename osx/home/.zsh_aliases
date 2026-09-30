@@ -69,3 +69,6 @@ alias port='lsof -nP -iTCP -sTCP:LISTEN | grep'
 
 alias ubuntu='virtualboxvm --startvm ubuntu24 &'
 alias ubu='virtualboxvm --startvm ubuntu24 &'
+
+alias vim='echo "sudo apt-get update && sudo apt-get install -y vim-tiny jq" | pbcopy && echo Command copied to clipboard'
+alias pan='echo "t1-465421" | pbcopy && echo Command copied to clipboard'

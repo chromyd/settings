@@ -1,13 +1,25 @@
 #!/bin/bash
 
+if [ ! -d .git ]
+then
+	echo "There is no .git directory here - please run this script in the root directory of your project - exiting" >&2
+	exit 1
+fi
+
+if [ -x .git-go-check ]
+then
+	./.git-go-check || exit 1
+fi
+
 NO_TESTS=${NO_TESTS:-1}
 NO_LINT=${NO_LINT:-1}
+LABEL_OPTION=""
 
 ISSUE_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/feature\///' | sed 's/bugfix\///' | tr _ - | cut -f 1-2 -d- | tr a-z A-Z)
 
 if [ -r nx.json ]
 then
-	FORMAT_CMD="npm run nx -- format:write --all"
+	FORMAT_CMD="true" #"npm run nx -- format:write --all"
 else
 	FORMAT_CMD=true
 fi
@@ -78,6 +90,13 @@ do
 			ISSUE_NAME=$2
 			shift
 			;;
+		-l)
+			LABEL_OPTION="-l $2"
+			shift
+			;;
+		-f)
+			LABEL_OPTION="-l fix-main"
+			;;
 		*)
 			echo Unrecognized parameter $1
 			exit 1
@@ -102,7 +121,7 @@ git add -u . &&
 echo "$*" &&
 echo "Task: $ISSUE_NAME" &&
 (git diff-index --quiet HEAD || git commit -m "$*" -m "Task: $ISSUE_NAME" $GIT_OPTS) &&
-([ "$NO_PUSH" = "1" ] || git push-with-mr $GIT_OPTS ) &&
+([ "$NO_PUSH" = "1" ] || git push-with-mr -i $ISSUE_NAME $GIT_OPTS $LABEL_OPTION) &&
 ([ "$(basename $(pwd))" != "aip-aws-services" ] || (echo "🏷️  Updating project label $ISSUE_NAME ..." && curl -fsS -o ~/.curl.log -X PUT -H "PRIVATE-TOKEN: ${customValue1}" --url "https://git.tech.rz.db.de/api/v4/projects/217348/labels/$ISSUE_NAME" -d "color=#00CED1" )) &&
 
 echo ✅ OK

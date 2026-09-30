@@ -33,7 +33,7 @@ get_file_name() {
 
 if [ -z "$1" ]
 then
-  echo "Usage: $0 <number_of_days>"
+  echo "Usage: $(basename $0) <number_of_days_to_go_back> [number_of_days_to_book]"
   exit 1
 fi
 

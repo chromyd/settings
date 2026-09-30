@@ -1,3 +1,5 @@
+# --- your interactive setup below (oh-my-zsh, powerlevel10k, plugins, etc.) ---
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -17,7 +19,16 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
 # ZSH_THEME="af-magic"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="simple"
+
+# if [[ "$TERM_PROGRAM" != "kiro" ]]; then
+#     ZSH_THEME="powerlevel10k/powerlevel10k"
+# else
+#     # Use simple theme in Kiro to avoid CLI session conflicts
+#     # ZSH_THEME="af-magic"
+#     # ZSH_THEME="robbyrussell"
+#     ZSH_THEME="simple"
+# fi
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -138,9 +149,9 @@ export LESS="--no-init --quit-if-one-screen -R"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export gitlabAccessToken=$(cat ~/.gitlabToken)
-export customValue1=${gitlabAccessToken}
-export personalArtifactoryToken=$(cat ~/.artifactoryToken)
+export gitlabPersonalAccessToken=$(cat ~/.gitlabToken)
+
+export personalArtifactoryToken=$(cat ~/.artifactoryToken2)
 export artifactoryAccessToken=$(echo -n "DusanChromy:${personalArtifactoryToken}" | base64)
 
 export NVM_DIR="$HOME/.nvm"
@@ -156,3 +167,5 @@ export CLOUD_HOME="/Users/dusanchromy/Library/Mobile Documents/com~apple~CloudDo
 #eval "$(oh-my-posh init zsh --config 'hotstick.minimal')"
 
 export ALWAYS_VENV=1
+
+export BICEP_PARALLELISM=4

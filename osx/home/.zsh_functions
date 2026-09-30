@@ -86,13 +86,16 @@ function rr() {
 }
 
 function venv() {
+	python=${1:-python3}
+	echo "Running python with ${python}..."
+
 	if [ ! -r dotenv-sample ] && [ ! -r dotenv-sample-access-token ] && [ "${ALWAYS_VENV}" != "1" ]
 	then
 		echo "No dotenv-sample found in current directory - exiting"
 		return
 	fi
 	echo "Setting python virtual env..." &&
-	python3 -m venv env &&
+	${python} -m venv env &&
 	echo "Activating it..." &&
 	source ./env/bin/activate &&
 	if [ -r requirements.txt ]
